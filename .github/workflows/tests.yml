@@ -1,0 +1,22 @@
+name: Continuous Integration of pokeapi
+
+run-name: ${{ github.actor }} is testing out pokeapi
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Build containers
+        run: |
+          cd docker
+          docker-compose up -d
