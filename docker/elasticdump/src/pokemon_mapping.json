@@ -13,6 +13,15 @@
                 }
               }
             },
+            "ability_2": {
+              "type": "text",
+              "fields": {
+                "keyword": {
+                  "type": "keyword",
+                  "ignore_above": 256
+                }
+              }
+            },
             "hidden_ability": {
               "type": "text",
               "fields": {
@@ -46,6 +55,15 @@
             },
             "speed": {
               "type": "long"
+            }
+          }
+        },
+        "form": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "type": "keyword",
+              "ignore_above": 256
             }
           }
         },
@@ -107,6 +125,15 @@
         },
         "primal_reversion": {
           "type": "boolean"
+        },
+        "regional_variant": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "type": "keyword",
+              "ignore_above": 256
+            }
+          }
         },
         "weight": {
           "type": "float"
