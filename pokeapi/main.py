@@ -1,5 +1,3 @@
-from typing import Union
-
 from fastapi import FastAPI
 
 app = FastAPI()
@@ -7,9 +5,12 @@ app = FastAPI()
 
 @app.get("/")
 def read_root() -> dict:
-    return {"Hello": "World"}
+    return {"Message": "Welcome to Pokédex!"}
 
 
-@app.get("/pokemon/{pokemon}")
-def read_pokemon(pokemon: int, q: Union[str, None] = None) -> dict:
-    return {"pokemon": pokemon, "q": q}
+@app.get("/pokemon/{national_pokedex_number}")
+def read_pokemon(national_pokedex_number: int) -> dict:
+    return {
+        "National Pokédex Number": national_pokedex_number,
+        "Name": "けつばん",
+    }
