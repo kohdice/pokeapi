@@ -16,4 +16,4 @@ RUN apt-get update && apt-get install -y jq neovim \
 
 COPY ./pyproject.toml* ./poetry.lock* ./
 
-RUN poetry install --no-dev
+RUN poetry install --only main
