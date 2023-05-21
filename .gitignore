@@ -127,3 +127,7 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# OS metadata
+.DS_Store
+Thumbs.db

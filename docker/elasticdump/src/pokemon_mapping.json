@@ -1,0 +1,117 @@
+{
+  "pokemon": {
+    "mappings": {
+      "properties": {
+        "abilities": {
+          "properties": {
+            "ability_1": {
+              "type": "text",
+              "fields": {
+                "keyword": {
+                  "type": "keyword",
+                  "ignore_above": 256
+                }
+              }
+            },
+            "hidden_ability": {
+              "type": "text",
+              "fields": {
+                "keyword": {
+                  "type": "keyword",
+                  "ignore_above": 256
+                }
+              }
+            }
+          }
+        },
+        "base_stats": {
+          "properties": {
+            "attack": {
+              "type": "long"
+            },
+            "base_total": {
+              "type": "long"
+            },
+            "defense": {
+              "type": "long"
+            },
+            "hp": {
+              "type": "long"
+            },
+            "special_attack": {
+              "type": "long"
+            },
+            "special_defense": {
+              "type": "long"
+            },
+            "speed": {
+              "type": "long"
+            }
+          }
+        },
+        "gender_type": {
+          "properties": {
+            "has_female": {
+              "type": "boolean"
+            },
+            "has_male": {
+              "type": "boolean"
+            }
+          }
+        },
+        "height": {
+          "type": "float"
+        },
+        "is_legendary": {
+          "type": "boolean"
+        },
+        "is_mythical": {
+          "type": "boolean"
+        },
+        "mega_evolution": {
+          "type": "boolean"
+        },
+        "name": {
+          "type": "text",
+          "fields": {
+            "keyword": {
+              "type": "keyword",
+              "ignore_above": 256
+            }
+          }
+        },
+        "national_pokedex_number": {
+          "type": "long"
+        },
+        "pokemon_type": {
+          "properties": {
+            "type_1": {
+              "type": "text",
+              "fields": {
+                "keyword": {
+                  "type": "keyword",
+                  "ignore_above": 256
+                }
+              }
+            },
+            "type_2": {
+              "type": "text",
+              "fields": {
+                "keyword": {
+                  "type": "keyword",
+                  "ignore_above": 256
+                }
+              }
+            }
+          }
+        },
+        "primal_reversion": {
+          "type": "boolean"
+        },
+        "weight": {
+          "type": "float"
+        }
+      }
+    }
+  }
+}
