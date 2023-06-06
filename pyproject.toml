@@ -59,6 +59,13 @@ markers = [
     "private: marks tests as for-private-member (deselect with '-m \"not private\"')"
 ]
 
+[tool.coverage.run]
+omit = [
+    "tests/*",
+    ".venv/*",
+]
+
+
 [project]
 name = "pokeapi"
 version = "0.1.0"
