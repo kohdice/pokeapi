@@ -2,8 +2,8 @@ from dataclasses import FrozenInstanceError
 
 import pytest
 
-from pokeapi.search import config
-from pokeapi.search.config import Singleton
+from pokeapi import config
+from pokeapi.config import Singleton
 
 
 class TestSingleton:
