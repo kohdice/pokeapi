@@ -1,7 +1,9 @@
+from dataclasses import FrozenInstanceError
+
 import pytest
 
 from pokeapi.search import config
-from pokeapi.search.config import Singleton, StageEnvIsWorngException
+from pokeapi.search.config import Singleton
 
 
 class TestSingleton:
@@ -13,26 +15,22 @@ class TestSingleton:
 
 
 class TestConfig:
-    def test_get_config_worng(self, env_wrong) -> None:
-        with pytest.raises(StageEnvIsWorngException) as e:
-            config.get_config()
-
-        assert str(e.value) == "STAGE=hogehoge is an invalid value."
-
-    def test_get_config_development(self, env_development) -> None:
+    @pytest.mark.usefixtures("_setup_get_config")
+    def test_get_config(self) -> None:
         actual = config.get_config()
 
         assert actual.ES_INDEX == "pokemon"
-        assert actual.ES_CONNECTION == "http://elasticsearch:9200"
+        assert actual.ES_CONNECTION_URL == "http://elasticsearch_test:9200"
 
-    def test_get_config_staging(self, env_staging) -> None:
-        actual = config.get_config()
+        actual_clone = config.get_config()
+        assert actual is actual_clone
 
-        assert actual.ES_INDEX == "pokemon"
-        assert actual.ES_CONNECTION == "http://elasticsearch_staging:9200"
+        with pytest.raises(FrozenInstanceError) as index_e:
+            actual.ES_INDEX = "hoge"
 
-    def test_get_config_production(self, env_production) -> None:
-        actual = config.get_config()
+        assert str(index_e.value) == "cannot assign to field 'ES_INDEX'"
 
-        assert actual.ES_INDEX == "pokemon"
-        assert actual.ES_CONNECTION == "http://elasticsearch_production:9200"
+        with pytest.raises(FrozenInstanceError) as url_e:
+            actual.ES_CONNECTION_URL = "hoge"
+
+        assert str(url_e.value) == "cannot assign to field 'ES_CONNECTION_URL'"

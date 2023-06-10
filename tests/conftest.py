@@ -1,37 +1,13 @@
 import os
+from typing import Generator
 
 import pytest
 
 
-@pytest.fixture
-def env_wrong():
-    os.environ["STAGE"] = "hogehoge"
+@pytest.fixture()
+def _setup_get_config() -> Generator[None, None, None]:
+    os.environ["ES_INDEX"] = "pokemon"
+    os.environ["ES_CONNECTION_URL"] = "http://elasticsearch_test:9200"
     yield
-    del os.environ["STAGE"]
-
-
-@pytest.fixture
-def env_development():
-    os.environ["STAGE"] = "development"
-    yield
-    del os.environ["STAGE"]
-
-
-@pytest.fixture
-def env_staging():
-    os.environ["STAGE"] = "staging"
-    os.environ["ES_CONNECTION_STAGING"] = "http://elasticsearch_staging:9200"
-    yield
-    del os.environ["STAGE"]
-    del os.environ["ES_CONNECTION_STAGING"]
-
-
-@pytest.fixture
-def env_production():
-    os.environ["STAGE"] = "production"
-    os.environ[
-        "ES_CONNECTION_PRODUCTION"
-    ] = "http://elasticsearch_production:9200"
-    yield
-    del os.environ["STAGE"]
-    del os.environ["ES_CONNECTION_PRODUCTION"]
+    del os.environ["ES_INDEX"]
+    del os.environ["ES_CONNECTION_URL"]
