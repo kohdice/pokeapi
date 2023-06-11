@@ -52,12 +52,12 @@ line-length = 79
 profile = "black"
 line_length = 79
 
-[tool.pytest.ini_options]
-markers = [
-    "now: marks tests as now-to-do",
-    "not_now: marks tests as not-now-to-do (deselect with '-m \"not not_now\"')",
-    "private: marks tests as for-private-member (deselect with '-m \"not private\"')"
+[tool.coverage.run]
+omit = [
+    "tests/*",
+    ".venv/*",
 ]
+
 
 [project]
 name = "pokeapi"
