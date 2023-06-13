@@ -4,16 +4,39 @@ from typing import Any
 
 
 class Param(ABC):
+    """Abstract class for parameter creation"""
+
     @abstractmethod
     def create_param(self) -> dict[str, Any] | None:
+        """Abstract method for parameter creation
+
+        Returns:
+            dict[str, Any] | None:
+            Dict with search parameters for elasticsearch
+        """
         pass
 
 
 @dataclass
 class CreatePokedexNumberParam(Param):
+    """Dataclass to create search parameters for `National Pokédex number`
+        for elasticsearch.
+
+    Args:
+        Param (object): Abstract class for search parameter creation.
+    """
+
     pokedex_number: str | None
 
     def create_param(self) -> dict[str, Any] | None:
+        """Method to create search parameters of `National Pokédex number`
+            for elasticsearch.
+
+        Returns:
+            dict[str, Any] | None:
+            Dict with search parameters of `National Pokémon number`
+            for elasticsearch
+        """
         if self.pokedex_number is None:
             return None
         try:
@@ -26,9 +49,23 @@ class CreatePokedexNumberParam(Param):
 
 @dataclass
 class CreateNameParam(Param):
+    """Dataclass to create search parameters for `name of Pokémon`
+        for elasticsearch.
+
+    Args:
+        Param (object): Abstract class for search parameter creation.
+    """
+
     name: str | None
 
     def create_param(self) -> dict[str, Any] | None:
+        """Method to create search parameters of `name of Pokémon`
+            for elasticsearch.
+
+        Returns:
+            dict[str, Any] | None:
+            Dict with search parameters of `name of Pokémon`for elasticsearch
+        """
         if self.name is None:
             return None
         return {"term": {"name": {"value": self.name}}}
@@ -36,9 +73,23 @@ class CreateNameParam(Param):
 
 @dataclass
 class CreateFormParam(Param):
+    """Dataclass to create search parameters of `form of Pokémon`
+        for elasticsearch.
+
+    Args:
+        Param (object): Abstract class for search parameter creation.
+    """
+
     form: str | None
 
     def create_param(self) -> dict[str, Any] | None:
+        """Method to create search parameters of `form of Pokémon`
+            for elasticsearch.
+
+        Returns:
+            dict[str, Any] | None:
+            Dict with search parameters of `form of Pokémon`for elasticsearch
+        """
         if self.form is None:
             return None
         return {"term": {"form": {"value": self.form}}}
