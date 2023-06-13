@@ -22,3 +22,13 @@ class CreatePokedexNumberParam(Param):
             return None
 
         return {"term": {"national_pokedex_number": {"value": pokedex_number}}}
+
+
+@dataclass
+class CreateNameParam(Param):
+    name: str | None
+
+    def create_param(self) -> dict[str, Any] | None:
+        if self.name is None:
+            return None
+        return {"term": {"name": {"value": self.name}}}

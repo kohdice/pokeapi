@@ -42,3 +42,17 @@ class TestCreatePokedexNumberParam:
         actual = q.create_param()
 
         assert actual is None
+
+
+class TestCreateNameParam:
+    def test_create_name_param(self) -> None:
+        p = query.CreateNameParam("フシギダネ")
+        actual = p.create_param()
+
+        assert actual == {"term": {"name": {"value": "フシギダネ"}}}
+
+    def test_create_name_param_none(self) -> None:
+        p = query.CreateNameParam(None)
+        actual = p.create_param()
+
+        assert actual is None
