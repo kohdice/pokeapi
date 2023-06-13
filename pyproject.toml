@@ -58,6 +58,9 @@ omit = [
     ".venv/*",
 ]
 
+[tool.coverage.report]
+exclude_lines = ["@abstractmethod"]
+
 
 [project]
 name = "pokeapi"
