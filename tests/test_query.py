@@ -56,3 +56,17 @@ class TestCreateNameParam:
         actual = p.create_param()
 
         assert actual is None
+
+
+class TestCreateformParam:
+    def test_create_form_param(self) -> None:
+        p = query.CreateFormParam("アローラのすがた")
+        actual = p.create_param()
+
+        assert actual == {"term": {"form": {"value": "アローラのすがた"}}}
+
+    def test_create_form_param_none(self) -> None:
+        p = query.CreateFormParam(None)
+        actual = p.create_param()
+
+        assert actual is None

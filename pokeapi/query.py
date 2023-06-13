@@ -32,3 +32,13 @@ class CreateNameParam(Param):
         if self.name is None:
             return None
         return {"term": {"name": {"value": self.name}}}
+
+
+@dataclass
+class CreateFormParam(Param):
+    form: str | None
+
+    def create_param(self) -> dict[str, Any] | None:
+        if self.form is None:
+            return None
+        return {"term": {"form": {"value": self.form}}}
