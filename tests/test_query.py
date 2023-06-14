@@ -84,3 +84,23 @@ class TestCreateRegionalVariantParam:
         actual = p.create_param()
 
         assert actual is None
+
+
+class TestCreateMegaEvolutionParam:
+    def test_create_mega_evolution_param_false(self) -> None:
+        p = query.CreateMegaEvolutionParam("0")
+        actual = p.create_param()
+
+        assert actual == {"term": {"mega_evolution": {"value": False}}}
+
+    def test_create_mega_evolution_param_true(self) -> None:
+        p = query.CreateMegaEvolutionParam("1")
+        actual = p.create_param()
+
+        assert actual == {"term": {"mega_evolution": {"value": True}}}
+
+    def test_create_regional_variant_param_none(self) -> None:
+        p = query.CreateMegaEvolutionParam(None)
+        actual = p.create_param()
+
+        assert actual is None

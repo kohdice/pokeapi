@@ -118,3 +118,32 @@ class CreateRegionalVariantParam(Param):
         if self.regional_variant is None:
             return None
         return {"term": {"regional_variant": {"value": self.regional_variant}}}
+
+
+@dataclass
+class CreateMegaEvolutionParam(Param):
+    """Dataclass to create search parameters of `Mega Evolution of Pokémon`
+        for elasticsearch.
+
+    Args:
+        Param (object): Abstract class for search parameter creation.
+    """
+
+    mega_evolution: str | None
+
+    def create_param(self) -> dict[str, Any] | None:
+        """Method to create search parameters of `Mega Evolution of Pokémon`
+            for elasticsearch.
+
+        Returns:
+            dict[str, Any] | None:
+            Dict with search parameters of `Mega Evolution of Pokémon`
+            for elasticsearch
+        """
+        match self.mega_evolution:
+            case "0":
+                return {"term": {"mega_evolution": {"value": False}}}
+            case "1":
+                return {"term": {"mega_evolution": {"value": True}}}
+            case _:
+                return None
