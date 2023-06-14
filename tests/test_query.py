@@ -124,3 +124,23 @@ class TestCreatePrimalReversionParam:
         actual = p.create_param()
 
         assert actual is None
+
+
+class TestCreateLegendaryParam:
+    def test_create_legendary_param_false(self) -> None:
+        p = query.CreateLegendaryParam("0")
+        actual = p.create_param()
+
+        assert actual == {"term": {"is_legendary": {"value": False}}}
+
+    def test_create_legendary_param_true(self) -> None:
+        p = query.CreateLegendaryParam("1")
+        actual = p.create_param()
+
+        assert actual == {"term": {"is_legendary": {"value": True}}}
+
+    def test_create_legendary_param_none(self) -> None:
+        p = query.CreateLegendaryParam(None)
+        actual = p.create_param()
+
+        assert actual is None

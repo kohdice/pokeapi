@@ -171,3 +171,32 @@ class CreatePrimalReversionParam(Param):
                 return {"term": {"is_primal_reversion": {"value": True}}}
             case _:
                 return None
+
+
+@dataclass
+class CreateLegendaryParam(Param):
+    """Dataclass to create search parameters of `Legendary of Pokémon`
+        for elasticsearch.
+
+    Args:
+        Param (object): Abstract class for search parameter creation.
+    """
+
+    is_legendary: str | None
+
+    def create_param(self) -> dict[str, dict[str, dict[str, bool]]] | None:
+        """Method to create search parameters of `Legendary of Pokémon`
+            for elasticsearch.
+
+        Returns:
+            dict[str, Any] | None:
+            Dict with search parameters of `Legendary of Pokémon`
+            for elasticsearch
+        """
+        match self.is_legendary:
+            case "0":
+                return {"term": {"is_legendary": {"value": False}}}
+            case "1":
+                return {"term": {"is_legendary": {"value": True}}}
+            case _:
+                return None
