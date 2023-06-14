@@ -60,10 +60,10 @@ class TestCreateNameParam:
 
 class TestCreateformParam:
     def test_create_form_param(self) -> None:
-        p = query.CreateFormParam("アローラのすがた")
+        p = query.CreateFormParam("れいじゅうフォルム")
         actual = p.create_param()
 
-        assert actual == {"term": {"form": {"value": "アローラのすがた"}}}
+        assert actual == {"term": {"form": {"value": "れいじゅうフォルム"}}}
 
     def test_create_form_param_none(self) -> None:
         p = query.CreateFormParam(None)
