@@ -19,7 +19,7 @@ class Param(ABC):
 
 @dataclass
 class CreatePokedexNumberParam(Param):
-    """Dataclass to create search parameters for `National Pokédex number`
+    """Dataclass to create search parameters for `National Pokédex Number`
         for elasticsearch.
 
     Args:
@@ -29,12 +29,12 @@ class CreatePokedexNumberParam(Param):
     pokedex_number: str | None
 
     def create_param(self) -> dict[str, Any] | None:
-        """Method to create search parameters of `National Pokédex number`
+        """Method to create search parameters of `National Pokédex Number`
             for elasticsearch.
 
         Returns:
             dict[str, Any] | None:
-            Dict with search parameters of `National Pokémon number`
+            Dict with search parameters of `National Pokémon Number`
             for elasticsearch
         """
         if self.pokedex_number is None:
@@ -49,7 +49,7 @@ class CreatePokedexNumberParam(Param):
 
 @dataclass
 class CreateNameParam(Param):
-    """Dataclass to create search parameters for `name of Pokémon`
+    """Dataclass to create search parameters for `Name of Pokémon`
         for elasticsearch.
 
     Args:
@@ -59,12 +59,12 @@ class CreateNameParam(Param):
     name: str | None
 
     def create_param(self) -> dict[str, Any] | None:
-        """Method to create search parameters of `name of Pokémon`
+        """Method to create search parameters of `Name of Pokémon`
             for elasticsearch.
 
         Returns:
             dict[str, Any] | None:
-            Dict with search parameters of `name of Pokémon`for elasticsearch
+            Dict with search parameters of `Name of Pokémon`for elasticsearch
         """
         if self.name is None:
             return None
@@ -73,7 +73,7 @@ class CreateNameParam(Param):
 
 @dataclass
 class CreateFormParam(Param):
-    """Dataclass to create search parameters of `form of Pokémon`
+    """Dataclass to create search parameters of `Form of Pokémon`
         for elasticsearch.
 
     Args:
@@ -83,12 +83,12 @@ class CreateFormParam(Param):
     form: str | None
 
     def create_param(self) -> dict[str, Any] | None:
-        """Method to create search parameters of `form of Pokémon`
+        """Method to create search parameters of `Form of Pokémon`
             for elasticsearch.
 
         Returns:
             dict[str, Any] | None:
-            Dict with search parameters of `form of Pokémon`for elasticsearch
+            Dict with search parameters of `Form of Pokémon`for elasticsearch
         """
         if self.form is None:
             return None
@@ -97,7 +97,7 @@ class CreateFormParam(Param):
 
 @dataclass
 class CreateRegionalVariantParam(Param):
-    """Dataclass to create search parameters of `Regional variant of Pokémon`
+    """Dataclass to create search parameters of `Regional Variant of Pokémon`
         for elasticsearch.
 
     Args:
@@ -107,12 +107,12 @@ class CreateRegionalVariantParam(Param):
     regional_variant: str | None
 
     def create_param(self) -> dict[str, Any] | None:
-        """Method to create search parameters of `Regional variant of Pokémon`
+        """Method to create search parameters of `Regional Variant of Pokémon`
             for elasticsearch.
 
         Returns:
             dict[str, Any] | None:
-            Dict with search parameters of `Regional variant of Pokémon`
+            Dict with search parameters of `Regional Variant of Pokémon`
             for elasticsearch
         """
         if self.regional_variant is None:
