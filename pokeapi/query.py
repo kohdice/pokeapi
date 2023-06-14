@@ -8,12 +8,7 @@ class Param(ABC):
 
     @abstractmethod
     def create_param(self) -> dict[str, Any] | None:
-        """Abstract method for parameter creation
-
-        Returns:
-            dict[str, Any] | None:
-            Dict with search parameters for elasticsearch
-        """
+        """Abstract method for parameter creation"""
         pass
 
 
@@ -28,7 +23,7 @@ class CreatePokedexNumberParam(Param):
 
     pokedex_number: str | None
 
-    def create_param(self) -> dict[str, Any] | None:
+    def create_param(self) -> dict[str, dict[str, dict[str, int]]] | None:
         """Method to create search parameters of `National Pokédex Number`
             for elasticsearch.
 
@@ -58,7 +53,7 @@ class CreateNameParam(Param):
 
     name: str | None
 
-    def create_param(self) -> dict[str, Any] | None:
+    def create_param(self) -> dict[str, dict[str, dict[str, Any]]] | None:
         """Method to create search parameters of `Name of Pokémon`
             for elasticsearch.
 
@@ -82,7 +77,7 @@ class CreateFormParam(Param):
 
     form: str | None
 
-    def create_param(self) -> dict[str, Any] | None:
+    def create_param(self) -> dict[str, dict[str, dict[str, Any]]] | None:
         """Method to create search parameters of `Form of Pokémon`
             for elasticsearch.
 
@@ -106,7 +101,7 @@ class CreateRegionalVariantParam(Param):
 
     regional_variant: str | None
 
-    def create_param(self) -> dict[str, Any] | None:
+    def create_param(self) -> dict[str, dict[str, dict[str, Any]]] | None:
         """Method to create search parameters of `Regional Variant of Pokémon`
             for elasticsearch.
 
@@ -131,7 +126,7 @@ class CreateMegaEvolutionParam(Param):
 
     is_mega_evolution: str | None
 
-    def create_param(self) -> dict[str, Any] | None:
+    def create_param(self) -> dict[str, dict[str, dict[str, bool]]] | None:
         """Method to create search parameters of `Mega Evolution of Pokémon`
             for elasticsearch.
 
@@ -160,7 +155,7 @@ class CreatePrimalReversionParam(Param):
 
     is_primal_reversion: str | None
 
-    def create_param(self) -> dict[str, Any] | None:
+    def create_param(self) -> dict[str, dict[str, dict[str, bool]]] | None:
         """Method to create search parameters of `Primal Reversion of Pokémon`
             for elasticsearch.
 
