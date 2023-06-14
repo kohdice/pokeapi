@@ -70,3 +70,17 @@ class TestCreateformParam:
         actual = p.create_param()
 
         assert actual is None
+
+
+class TestCreateRegionalVariantParam:
+    def test_create_regional_variant_param(self) -> None:
+        p = query.CreateRegionalVariantParam("アローラのすがた")
+        actual = p.create_param()
+
+        assert actual == {"term": {"regional_variant": {"value": "アローラのすがた"}}}
+
+    def test_create_regional_variant_param_none(self) -> None:
+        p = query.CreateRegionalVariantParam(None)
+        actual = p.create_param()
+
+        assert actual is None

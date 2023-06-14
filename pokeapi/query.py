@@ -93,3 +93,28 @@ class CreateFormParam(Param):
         if self.form is None:
             return None
         return {"term": {"form": {"value": self.form}}}
+
+
+@dataclass
+class CreateRegionalVariantParam(Param):
+    """Dataclass to create search parameters of `Regional variant of Pokémon`
+        for elasticsearch.
+
+    Args:
+        Param (object): Abstract class for search parameter creation.
+    """
+
+    regional_variant: str | None
+
+    def create_param(self) -> dict[str, Any] | None:
+        """Method to create search parameters of `Regional variant of Pokémon`
+            for elasticsearch.
+
+        Returns:
+            dict[str, Any] | None:
+            Dict with search parameters of `Regional variant of Pokémon`
+            for elasticsearch
+        """
+        if self.regional_variant is None:
+            return None
+        return {"term": {"regional_variant": {"value": self.regional_variant}}}
