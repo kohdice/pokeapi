@@ -147,3 +147,32 @@ class CreateMegaEvolutionParam(Param):
                 return {"term": {"is_mega_evolution": {"value": True}}}
             case _:
                 return None
+
+
+@dataclass
+class CreatePrimalReversionParam(Param):
+    """Dataclass to create search parameters of `Primal Reversion of Pokémon`
+        for elasticsearch.
+
+    Args:
+        Param (object): Abstract class for search parameter creation.
+    """
+
+    is_primal_reversion: str | None
+
+    def create_param(self) -> dict[str, Any] | None:
+        """Method to create search parameters of `Primal Reversion of Pokémon`
+            for elasticsearch.
+
+        Returns:
+            dict[str, Any] | None:
+            Dict with search parameters of `Primal Reversion of Pokémon`
+            for elasticsearch
+        """
+        match self.is_primal_reversion:
+            case "0":
+                return {"term": {"is_primal_reversion": {"value": False}}}
+            case "1":
+                return {"term": {"is_primal_reversion": {"value": True}}}
+            case _:
+                return None

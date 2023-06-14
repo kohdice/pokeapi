@@ -104,3 +104,23 @@ class TestCreateMegaEvolutionParam:
         actual = p.create_param()
 
         assert actual is None
+
+
+class TestCreatePrimalReversionParam:
+    def test_create_primal_reversion_param_false(self) -> None:
+        p = query.CreatePrimalReversionParam("0")
+        actual = p.create_param()
+
+        assert actual == {"term": {"is_primal_reversion": {"value": False}}}
+
+    def test_create_primal_reversion_param_true(self) -> None:
+        p = query.CreatePrimalReversionParam("1")
+        actual = p.create_param()
+
+        assert actual == {"term": {"is_primal_reversion": {"value": True}}}
+
+    def test_create_primal_reversion_param_none(self) -> None:
+        p = query.CreatePrimalReversionParam(None)
+        actual = p.create_param()
+
+        assert actual is None
