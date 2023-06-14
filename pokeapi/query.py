@@ -129,7 +129,7 @@ class CreateMegaEvolutionParam(Param):
         Param (object): Abstract class for search parameter creation.
     """
 
-    mega_evolution: str | None
+    is_mega_evolution: str | None
 
     def create_param(self) -> dict[str, Any] | None:
         """Method to create search parameters of `Mega Evolution of Pokémon`
@@ -140,10 +140,10 @@ class CreateMegaEvolutionParam(Param):
             Dict with search parameters of `Mega Evolution of Pokémon`
             for elasticsearch
         """
-        match self.mega_evolution:
+        match self.is_mega_evolution:
             case "0":
-                return {"term": {"mega_evolution": {"value": False}}}
+                return {"term": {"is_mega_evolution": {"value": False}}}
             case "1":
-                return {"term": {"mega_evolution": {"value": True}}}
+                return {"term": {"is_mega_evolution": {"value": True}}}
             case _:
                 return None
