@@ -200,3 +200,32 @@ class CreateLegendaryParam(Param):
                 return {"term": {"is_legendary": {"value": True}}}
             case _:
                 return None
+
+
+@dataclass
+class CreateMythicalParam(Param):
+    """Dataclass to create search parameters of `Mythical of Pokémon`
+        for elasticsearch.
+
+    Args:
+        Param (object): Abstract class for search parameter creation.
+    """
+
+    is_mythical: str | None
+
+    def create_param(self) -> dict[str, dict[str, dict[str, bool]]] | None:
+        """Method to create search parameters of `Mythical of Pokémon`
+            for elasticsearch.
+
+        Returns:
+            dict[str, Any] | None:
+            Dict with search parameters of `Mythical of Pokémon`
+            for elasticsearch
+        """
+        match self.is_mythical:
+            case "0":
+                return {"term": {"is_mythical": {"value": False}}}
+            case "1":
+                return {"term": {"is_mythical": {"value": True}}}
+            case _:
+                return None

@@ -144,3 +144,23 @@ class TestCreateLegendaryParam:
         actual = p.create_param()
 
         assert actual is None
+
+
+class TestCreateMythicalParam:
+    def test_create_mythical_param_false(self) -> None:
+        p = query.CreateMythicalParam("0")
+        actual = p.create_param()
+
+        assert actual == {"term": {"is_mythical": {"value": False}}}
+
+    def test_create_mythical_param_true(self) -> None:
+        p = query.CreateMythicalParam("1")
+        actual = p.create_param()
+
+        assert actual == {"term": {"is_mythical": {"value": True}}}
+
+    def test_create_mythical_param_none(self) -> None:
+        p = query.CreateMythicalParam(None)
+        actual = p.create_param()
+
+        assert actual is None
