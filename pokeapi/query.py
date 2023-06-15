@@ -1,6 +1,5 @@
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
-from typing import Any
 
 
 class Param(ABC):
@@ -23,12 +22,12 @@ class CreatePokedexNumberParam(Param):
 
     pokedex_number: str | None
 
-    def create_param(self) -> dict[str, dict[str, dict[str, int]]] | None:
+    def create_param(self) -> dict[str, dict[str, int]] | None:
         """Method to create search parameters of `National Pokédex Number`
             for elasticsearch.
 
         Returns:
-            dict[str, Any] | None:
+            dict[str, dict[str, int]] | None:
             Dict with search parameters of `National Pokémon Number`
             for elasticsearch
         """
@@ -39,7 +38,7 @@ class CreatePokedexNumberParam(Param):
         except ValueError:
             return None
 
-        return {"term": {"national_pokedex_number": {"value": pokedex_number}}}
+        return {"term": {"national_pokedex_number": pokedex_number}}
 
 
 @dataclass
@@ -53,17 +52,17 @@ class CreateNameParam(Param):
 
     name: str | None
 
-    def create_param(self) -> dict[str, dict[str, dict[str, Any]]] | None:
+    def create_param(self) -> dict[str, dict[str, str]] | None:
         """Method to create search parameters of `Name of Pokémon`
             for elasticsearch.
 
         Returns:
-            dict[str, Any] | None:
+            dict[str, dict[str, str]] | None:
             Dict with search parameters of `Name of Pokémon`for elasticsearch
         """
         if self.name is None:
             return None
-        return {"term": {"name": {"value": self.name}}}
+        return {"term": {"name": self.name}}
 
 
 @dataclass
@@ -77,17 +76,17 @@ class CreateFormParam(Param):
 
     form: str | None
 
-    def create_param(self) -> dict[str, dict[str, dict[str, Any]]] | None:
+    def create_param(self) -> dict[str, dict[str, str]] | None:
         """Method to create search parameters of `Form of Pokémon`
             for elasticsearch.
 
         Returns:
-            dict[str, Any] | None:
+            dict[str, dict[str, str]] | None:
             Dict with search parameters of `Form of Pokémon`for elasticsearch
         """
         if self.form is None:
             return None
-        return {"term": {"form": {"value": self.form}}}
+        return {"term": {"form": self.form}}
 
 
 @dataclass
@@ -101,18 +100,18 @@ class CreateRegionalVariantParam(Param):
 
     regional_variant: str | None
 
-    def create_param(self) -> dict[str, dict[str, dict[str, Any]]] | None:
+    def create_param(self) -> dict[str, dict[str, str]] | None:
         """Method to create search parameters of `Regional Variant of Pokémon`
             for elasticsearch.
 
         Returns:
-            dict[str, Any] | None:
+            dict[str, dict[str, str]] | None:
             Dict with search parameters of `Regional Variant of Pokémon`
             for elasticsearch
         """
         if self.regional_variant is None:
             return None
-        return {"term": {"regional_variant": {"value": self.regional_variant}}}
+        return {"term": {"regional_variant": self.regional_variant}}
 
 
 @dataclass
@@ -126,20 +125,20 @@ class CreateMegaEvolutionParam(Param):
 
     is_mega_evolution: str | None
 
-    def create_param(self) -> dict[str, dict[str, dict[str, bool]]] | None:
+    def create_param(self) -> dict[str, dict[str, bool]] | None:
         """Method to create search parameters of `Mega Evolution of Pokémon`
             for elasticsearch.
 
         Returns:
-            dict[str, Any] | None:
+            dict[str, dict[str, bool]] | None:
             Dict with search parameters of `Mega Evolution of Pokémon`
             for elasticsearch
         """
         match self.is_mega_evolution:
             case "0":
-                return {"term": {"is_mega_evolution": {"value": False}}}
+                return {"term": {"is_mega_evolution": False}}
             case "1":
-                return {"term": {"is_mega_evolution": {"value": True}}}
+                return {"term": {"is_mega_evolution": True}}
             case _:
                 return None
 
@@ -155,20 +154,20 @@ class CreatePrimalReversionParam(Param):
 
     is_primal_reversion: str | None
 
-    def create_param(self) -> dict[str, dict[str, dict[str, bool]]] | None:
+    def create_param(self) -> dict[str, dict[str, bool]] | None:
         """Method to create search parameters of `Primal Reversion of Pokémon`
             for elasticsearch.
 
         Returns:
-            dict[str, Any] | None:
+            dict[str, dict[str, bool]] | None:
             Dict with search parameters of `Primal Reversion of Pokémon`
             for elasticsearch
         """
         match self.is_primal_reversion:
             case "0":
-                return {"term": {"is_primal_reversion": {"value": False}}}
+                return {"term": {"is_primal_reversion": False}}
             case "1":
-                return {"term": {"is_primal_reversion": {"value": True}}}
+                return {"term": {"is_primal_reversion": True}}
             case _:
                 return None
 
@@ -184,20 +183,20 @@ class CreateLegendaryParam(Param):
 
     is_legendary: str | None
 
-    def create_param(self) -> dict[str, dict[str, dict[str, bool]]] | None:
+    def create_param(self) -> dict[str, dict[str, bool]] | None:
         """Method to create search parameters of `Legendary of Pokémon`
             for elasticsearch.
 
         Returns:
-            dict[str, Any] | None:
+            dict[str, dict[str, bool]] | None:
             Dict with search parameters of `Legendary of Pokémon`
             for elasticsearch
         """
         match self.is_legendary:
             case "0":
-                return {"term": {"is_legendary": {"value": False}}}
+                return {"term": {"is_legendary": False}}
             case "1":
-                return {"term": {"is_legendary": {"value": True}}}
+                return {"term": {"is_legendary": True}}
             case _:
                 return None
 
@@ -213,20 +212,20 @@ class CreateMythicalParam(Param):
 
     is_mythical: str | None
 
-    def create_param(self) -> dict[str, dict[str, dict[str, bool]]] | None:
+    def create_param(self) -> dict[str, dict[str, bool]] | None:
         """Method to create search parameters of `Mythical of Pokémon`
             for elasticsearch.
 
         Returns:
-            dict[str, Any] | None:
+            dict[str, dict[str, bool]] | None:
             Dict with search parameters of `Mythical of Pokémon`
             for elasticsearch
         """
         match self.is_mythical:
             case "0":
-                return {"term": {"is_mythical": {"value": False}}}
+                return {"term": {"is_mythical": False}}
             case "1":
-                return {"term": {"is_mythical": {"value": True}}}
+                return {"term": {"is_mythical": True}}
             case _:
                 return None
 

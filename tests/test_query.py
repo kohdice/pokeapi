@@ -29,7 +29,7 @@ class TestCreatePokedexNumberParam:
         q = query.CreatePokedexNumberParam("1")
         actual = q.create_param()
 
-        assert actual == {"term": {"national_pokedex_number": {"value": 1}}}
+        assert actual == {"term": {"national_pokedex_number": 1}}
 
     def test_create_pokedex_number_param_not_number(self) -> None:
         q = query.CreatePokedexNumberParam("test")
@@ -49,7 +49,7 @@ class TestCreateNameParam:
         p = query.CreateNameParam("フシギダネ")
         actual = p.create_param()
 
-        assert actual == {"term": {"name": {"value": "フシギダネ"}}}
+        assert actual == {"term": {"name": "フシギダネ"}}
 
     def test_create_name_param_none(self) -> None:
         p = query.CreateNameParam(None)
@@ -63,7 +63,7 @@ class TestCreateformParam:
         p = query.CreateFormParam("れいじゅうフォルム")
         actual = p.create_param()
 
-        assert actual == {"term": {"form": {"value": "れいじゅうフォルム"}}}
+        assert actual == {"term": {"form": "れいじゅうフォルム"}}
 
     def test_create_form_param_none(self) -> None:
         p = query.CreateFormParam(None)
@@ -77,7 +77,7 @@ class TestCreateRegionalVariantParam:
         p = query.CreateRegionalVariantParam("アローラのすがた")
         actual = p.create_param()
 
-        assert actual == {"term": {"regional_variant": {"value": "アローラのすがた"}}}
+        assert actual == {"term": {"regional_variant": "アローラのすがた"}}
 
     def test_create_regional_variant_param_none(self) -> None:
         p = query.CreateRegionalVariantParam(None)
@@ -91,13 +91,13 @@ class TestCreateMegaEvolutionParam:
         p = query.CreateMegaEvolutionParam("0")
         actual = p.create_param()
 
-        assert actual == {"term": {"is_mega_evolution": {"value": False}}}
+        assert actual == {"term": {"is_mega_evolution": False}}
 
     def test_create_mega_evolution_param_true(self) -> None:
         p = query.CreateMegaEvolutionParam("1")
         actual = p.create_param()
 
-        assert actual == {"term": {"is_mega_evolution": {"value": True}}}
+        assert actual == {"term": {"is_mega_evolution": True}}
 
     def test_create_regional_variant_param_none(self) -> None:
         p = query.CreateMegaEvolutionParam(None)
@@ -111,13 +111,13 @@ class TestCreatePrimalReversionParam:
         p = query.CreatePrimalReversionParam("0")
         actual = p.create_param()
 
-        assert actual == {"term": {"is_primal_reversion": {"value": False}}}
+        assert actual == {"term": {"is_primal_reversion": False}}
 
     def test_create_primal_reversion_param_true(self) -> None:
         p = query.CreatePrimalReversionParam("1")
         actual = p.create_param()
 
-        assert actual == {"term": {"is_primal_reversion": {"value": True}}}
+        assert actual == {"term": {"is_primal_reversion": True}}
 
     def test_create_primal_reversion_param_none(self) -> None:
         p = query.CreatePrimalReversionParam(None)
@@ -131,13 +131,13 @@ class TestCreateLegendaryParam:
         p = query.CreateLegendaryParam("0")
         actual = p.create_param()
 
-        assert actual == {"term": {"is_legendary": {"value": False}}}
+        assert actual == {"term": {"is_legendary": False}}
 
     def test_create_legendary_param_true(self) -> None:
         p = query.CreateLegendaryParam("1")
         actual = p.create_param()
 
-        assert actual == {"term": {"is_legendary": {"value": True}}}
+        assert actual == {"term": {"is_legendary": True}}
 
     def test_create_legendary_param_none(self) -> None:
         p = query.CreateLegendaryParam(None)
@@ -151,13 +151,13 @@ class TestCreateMythicalParam:
         p = query.CreateMythicalParam("0")
         actual = p.create_param()
 
-        assert actual == {"term": {"is_mythical": {"value": False}}}
+        assert actual == {"term": {"is_mythical": False}}
 
     def test_create_mythical_param_true(self) -> None:
         p = query.CreateMythicalParam("1")
         actual = p.create_param()
 
-        assert actual == {"term": {"is_mythical": {"value": True}}}
+        assert actual == {"term": {"is_mythical": True}}
 
     def test_create_mythical_param_none(self) -> None:
         p = query.CreateMythicalParam(None)
