@@ -7,7 +7,7 @@ class Param(ABC):
     """Abstract class for parameter creation"""
 
     @abstractmethod
-    def create_param(self) -> dict[str, Any] | None:
+    def create_param(self):
         """Abstract method for parameter creation"""
         pass
 
