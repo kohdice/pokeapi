@@ -164,3 +164,53 @@ class TestCreateMythicalParam:
         actual = p.create_param()
 
         assert actual is None
+
+
+class TestCreateGenderTypeParam:
+    def test_create_gender_type_param_0_0(self) -> None:
+        p = query.CreateGenderTypeParam(("0", "0"))
+        actual = p.create_param()
+
+        assert actual == [
+            {"match": {"gender_type.has_male": False}},
+            {"match": {"gender_type.has_female": False}},
+        ]
+
+    def test_create_gender_type_param_0_1(self) -> None:
+        p = query.CreateGenderTypeParam(("0", "1"))
+        actual = p.create_param()
+
+        assert actual == [
+            {"match": {"gender_type.has_male": False}},
+            {"match": {"gender_type.has_female": True}},
+        ]
+
+    def test_create_gender_type_param_1_0(self) -> None:
+        p = query.CreateGenderTypeParam(("1", "0"))
+        actual = p.create_param()
+
+        assert actual == [
+            {"match": {"gender_type.has_male": True}},
+            {"match": {"gender_type.has_female": False}},
+        ]
+
+    def test_create_gender_type_param_1_1(self) -> None:
+        p = query.CreateGenderTypeParam(("1", "1"))
+        actual = p.create_param()
+
+        assert actual == [
+            {"match": {"gender_type.has_male": True}},
+            {"match": {"gender_type.has_female": True}},
+        ]
+
+    def test_create_gender_type_param_none(self) -> None:
+        p = query.CreateGenderTypeParam((None, None))
+        actual = p.create_param()
+
+        assert actual is None
+
+    def test_create_gender_type_param_invalid(self) -> None:
+        p = query.CreateGenderTypeParam(("foo", "bar"))
+        actual = p.create_param()
+
+        assert actual is None

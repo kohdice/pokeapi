@@ -229,3 +229,59 @@ class CreateMythicalParam(Param):
                 return {"term": {"is_mythical": {"value": True}}}
             case _:
                 return None
+
+
+@dataclass
+class CreateGenderTypeParam(Param):
+    """Dataclass to create search parameters of `Gender Type of Pokémon`
+        for elasticsearch.
+
+    Args:
+        Param (object): Abstract class for search parameter creation.
+    """
+
+    gender_type: tuple[str | None, ...]
+
+    def create_param(self) -> list[dict[str, dict[str, bool]]] | None:
+        """Method to create search parameters of `Gender Type of Pokémon`
+            for elasticsearch.
+
+        Returns:
+            list[dict[str, dict[str, bool]]] | None:
+            List with search parameters of `Gender Type of Pokémon`
+            for elasticsearch
+        """
+        has_male, has_female = self.gender_type
+        if has_male is None and has_female is None:
+            return None
+
+        gender_param_list: list[dict] = []
+
+        match has_male:
+            case "0":
+                gender_param_list.append(
+                    {"match": {"gender_type.has_male": False}}
+                )
+            case "1":
+                gender_param_list.append(
+                    {"match": {"gender_type.has_male": True}}
+                )
+            case _:
+                pass
+
+        match has_female:
+            case "0":
+                gender_param_list.append(
+                    {"match": {"gender_type.has_female": False}}
+                )
+            case "1":
+                gender_param_list.append(
+                    {"match": {"gender_type.has_female": True}}
+                )
+            case _:
+                pass
+
+        if gender_param_list:
+            return gender_param_list
+        else:
+            return None
