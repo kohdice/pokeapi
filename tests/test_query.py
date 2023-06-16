@@ -214,3 +214,35 @@ class TestCreateGenderTypeParam:
         actual = p.create_param()
 
         assert actual is None
+
+
+class TestCreatePokemonTypeParam:
+    def test_create_pokemon_type_param_1_0(self) -> None:
+        p = query.CreatePokemonTypeParam(("ほのお", None))
+        actual = p.create_param()
+
+        assert actual == [
+            {"term": {"pokemon_type.type_1": "ほのお"}},
+            {"term": {"pokemon_type.type_2": None}},
+        ]
+
+    def test_create_pokemon_type_param_1_1(self) -> None:
+        p = query.CreatePokemonTypeParam(("ほのお", "ひこう"))
+        actual = p.create_param()
+
+        assert actual == [
+            {"term": {"pokemon_type.type_1": "ほのお"}},
+            {"term": {"pokemon_type.type_2": "ひこう"}},
+        ]
+
+    def test_create_pokemon_type_param_0_1(self) -> None:
+        p = query.CreatePokemonTypeParam((None, "ひこう"))
+        actual = p.create_param()
+
+        assert actual is None
+
+    def test_create_pokemon_type_param_none(self) -> None:
+        p = query.CreatePokemonTypeParam((None, None))
+        actual = p.create_param()
+
+        assert actual is None

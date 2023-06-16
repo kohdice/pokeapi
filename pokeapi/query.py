@@ -272,3 +272,39 @@ class CreateGenderTypeParam(Param):
             return gender_param_list
         else:
             return None
+
+
+@dataclass
+class CreatePokemonTypeParam(Param):
+    """Dataclass to create search parameters of `Type of Pokémon`
+        for elasticsearch.
+
+    Args:
+        Param (object): Abstract class for search parameter creation.
+    """
+
+    pokemon_type: tuple[str | None, str | None]
+
+    def create_param(self) -> list[dict[str, dict[str, str]]] | None:
+        """Method to create search parameters of `Type of Pokémon`
+            for elasticsearch.
+
+        Returns:
+            list[dict[str, dict[str, str]]] | None:
+            List with search parameters of `Type of Pokémon`
+            for elasticsearch
+        """
+        if self.pokemon_type == (None, None):
+            return None
+
+        pokemon_type_param_list: list[dict] = []
+
+        for i, type_ in enumerate(self.pokemon_type, 1):
+            if i == 1 and type_ is None:
+                return None
+
+            pokemon_type_param_list.append(
+                {"term": {f"pokemon_type.type_{i}": type_}}
+            )
+
+        return pokemon_type_param_list
