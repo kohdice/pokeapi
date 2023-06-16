@@ -285,12 +285,12 @@ class CreatePokemonTypeParam(Param):
 
     pokemon_type: tuple[str | None, str | None]
 
-    def create_param(self) -> list[dict[str, dict[str, str]]] | None:
+    def create_param(self) -> list[dict[str, dict[str, str | None]]] | None:
         """Method to create search parameters of `Type of Pokémon`
             for elasticsearch.
 
         Returns:
-            list[dict[str, dict[str, str]]] | None:
+            list[dict[str, dict[str, str | None]]] | None:
             List with search parameters of `Type of Pokémon`
             for elasticsearch
         """
