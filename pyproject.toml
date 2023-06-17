@@ -52,11 +52,19 @@ line-length = 79
 profile = "black"
 line_length = 79
 
+[tool.pytest.ini_options]
+markers = [
+    "param: mark as tests for query parameters (deselect with '-m \"not params\"')",
+]
+
 [tool.coverage.run]
 omit = [
     "tests/*",
     ".venv/*",
 ]
+
+[tool.coverage.report]
+exclude_lines = ["@abstractmethod"]
 
 
 [project]
