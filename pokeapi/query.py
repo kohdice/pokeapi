@@ -308,3 +308,48 @@ class CreatePokemonTypeParam(Param):
             )
 
         return pokemon_type_param_list
+
+
+@dataclass
+class CreateAbilityParam(Param):
+    """Dataclass to create search parameters of `Ability of Pokémon`
+        for elasticsearch.
+
+    Args:
+        Param (object): Abstract class for search parameter creation.
+    """
+
+    abilities: tuple[str | None, str | None, str | None]
+
+    def create_param(
+        self,
+    ) -> list[dict[str, dict[str, str | list[str]]]] | None:
+        """Method to create search parameters of `Ability of Pokémon`
+            for elasticsearch.
+
+        Returns:
+            list[dict[str, dict[str, str | list[str]]]] | None:
+            List with search parameters of `Ability of Pokémon`
+            for elasticsearch
+        """
+        if self.abilities == (None, None, None):
+            return None
+
+        ability_param_list: list[dict] = []
+
+        for ability in self.abilities:
+            if ability is not None:
+                ability_param_list.append(
+                    {
+                        "multi_match": {
+                            "query": ability,
+                            "fields": [
+                                "abilities.ability_1.keyword",
+                                "abilities.ability_2.keyword",
+                                "abilities.hidden_ability.keyword",
+                            ],
+                        }
+                    }
+                )
+
+        return ability_param_list

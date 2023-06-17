@@ -246,3 +246,153 @@ class TestCreatePokemonTypeParam:
         actual = p.create_param()
 
         assert actual is None
+
+
+class TestCreateAbilityParam:
+    def test_create_ability_param_1_0_0(self) -> None:
+        p = query.CreateAbilityParam(("にげあし", None, None))
+        actual = p.create_param()
+
+        assert actual == [
+            {
+                "multi_match": {
+                    "query": "にげあし",
+                    "fields": [
+                        "abilities.ability_1.keyword",
+                        "abilities.ability_2.keyword",
+                        "abilities.hidden_ability.keyword",
+                    ],
+                }
+            }
+        ]
+
+    def test_create_ability_param_1_1_0(self) -> None:
+        p = query.CreateAbilityParam(("にげあし", "するどいめ", None))
+        actual = p.create_param()
+
+        assert actual == [
+            {
+                "multi_match": {
+                    "query": "にげあし",
+                    "fields": [
+                        "abilities.ability_1.keyword",
+                        "abilities.ability_2.keyword",
+                        "abilities.hidden_ability.keyword",
+                    ],
+                }
+            },
+            {
+                "multi_match": {
+                    "query": "するどいめ",
+                    "fields": [
+                        "abilities.ability_1.keyword",
+                        "abilities.ability_2.keyword",
+                        "abilities.hidden_ability.keyword",
+                    ],
+                }
+            },
+        ]
+
+    def test_create_ability_param_1_1_1(self) -> None:
+        p = query.CreateAbilityParam(("にげあし", "するどいめ", "おみとおし"))
+        actual = p.create_param()
+
+        assert actual == [
+            {
+                "multi_match": {
+                    "query": "にげあし",
+                    "fields": [
+                        "abilities.ability_1.keyword",
+                        "abilities.ability_2.keyword",
+                        "abilities.hidden_ability.keyword",
+                    ],
+                }
+            },
+            {
+                "multi_match": {
+                    "query": "するどいめ",
+                    "fields": [
+                        "abilities.ability_1.keyword",
+                        "abilities.ability_2.keyword",
+                        "abilities.hidden_ability.keyword",
+                    ],
+                }
+            },
+            {
+                "multi_match": {
+                    "query": "おみとおし",
+                    "fields": [
+                        "abilities.ability_1.keyword",
+                        "abilities.ability_2.keyword",
+                        "abilities.hidden_ability.keyword",
+                    ],
+                }
+            },
+        ]
+
+    def test_create_ability_param_0_1_0(self) -> None:
+        p = query.CreateAbilityParam((None, "するどいめ", None))
+        actual = p.create_param()
+
+        assert actual == [
+            {
+                "multi_match": {
+                    "query": "するどいめ",
+                    "fields": [
+                        "abilities.ability_1.keyword",
+                        "abilities.ability_2.keyword",
+                        "abilities.hidden_ability.keyword",
+                    ],
+                }
+            }
+        ]
+
+    def test_create_ability_param_0_1_1(self) -> None:
+        p = query.CreateAbilityParam((None, "するどいめ", "おみとおし"))
+        actual = p.create_param()
+
+        assert actual == [
+            {
+                "multi_match": {
+                    "query": "するどいめ",
+                    "fields": [
+                        "abilities.ability_1.keyword",
+                        "abilities.ability_2.keyword",
+                        "abilities.hidden_ability.keyword",
+                    ],
+                }
+            },
+            {
+                "multi_match": {
+                    "query": "おみとおし",
+                    "fields": [
+                        "abilities.ability_1.keyword",
+                        "abilities.ability_2.keyword",
+                        "abilities.hidden_ability.keyword",
+                    ],
+                }
+            },
+        ]
+
+    def test_create_ability_param_0_0_1(self) -> None:
+        p = query.CreateAbilityParam((None, None, "おみとおし"))
+        actual = p.create_param()
+
+        assert actual == [
+            {
+                "multi_match": {
+                    "query": "おみとおし",
+                    "fields": [
+                        "abilities.ability_1.keyword",
+                        "abilities.ability_2.keyword",
+                        "abilities.hidden_ability.keyword",
+                    ],
+                }
+            }
+        ]
+
+    def test_create_ability_param_none(self) -> None:
+        p = query.CreateAbilityParam((None, None, None))
+        actual = p.create_param()
+
+        assert actual is None
