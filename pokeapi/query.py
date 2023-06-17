@@ -86,7 +86,7 @@ class CreateFormParam(Param):
         """
         if self.form is None:
             return None
-        return {"term": {"form": self.form}}
+        return {"term": {"form.keyword": self.form}}
 
 
 @dataclass
@@ -111,7 +111,7 @@ class CreateRegionalVariantParam(Param):
         """
         if self.regional_variant is None:
             return None
-        return {"term": {"regional_variant": self.regional_variant}}
+        return {"term": {"regional_variant.keyword": self.regional_variant}}
 
 
 @dataclass
@@ -259,11 +259,11 @@ class CreateGenderTypeParam(Param):
             match v:
                 case "0":
                     gender_param_list.append(
-                        {"match": {f"gender_type.{k}": False}}
+                        {"term": {f"gender_type.{k}": False}}
                     )
                 case "1":
                     gender_param_list.append(
-                        {"match": {f"gender_type.{k}": True}}
+                        {"term": {f"gender_type.{k}": True}}
                     )
                 case _:
                     pass

@@ -67,7 +67,7 @@ class TestCreateformParam:
         p = query.CreateFormParam("れいじゅうフォルム")
         actual = p.create_param()
 
-        assert actual == {"term": {"form": "れいじゅうフォルム"}}
+        assert actual == {"term": {"form.keyword": "れいじゅうフォルム"}}
 
     def test_create_form_param_none(self) -> None:
         p = query.CreateFormParam(None)
@@ -82,7 +82,7 @@ class TestCreateRegionalVariantParam:
         p = query.CreateRegionalVariantParam("アローラのすがた")
         actual = p.create_param()
 
-        assert actual == {"term": {"regional_variant": "アローラのすがた"}}
+        assert actual == {"term": {"regional_variant.keyword": "アローラのすがた"}}
 
     def test_create_regional_variant_param_none(self) -> None:
         p = query.CreateRegionalVariantParam(None)
@@ -182,8 +182,8 @@ class TestCreateGenderTypeParam:
         actual = p.create_param()
 
         assert actual == [
-            {"match": {"gender_type.has_male": False}},
-            {"match": {"gender_type.has_female": False}},
+            {"term": {"gender_type.has_male": False}},
+            {"term": {"gender_type.has_female": False}},
         ]
 
     def test_create_gender_type_param_0_1(self) -> None:
@@ -191,8 +191,8 @@ class TestCreateGenderTypeParam:
         actual = p.create_param()
 
         assert actual == [
-            {"match": {"gender_type.has_male": False}},
-            {"match": {"gender_type.has_female": True}},
+            {"term": {"gender_type.has_male": False}},
+            {"term": {"gender_type.has_female": True}},
         ]
 
     def test_create_gender_type_param_1_0(self) -> None:
@@ -200,8 +200,8 @@ class TestCreateGenderTypeParam:
         actual = p.create_param()
 
         assert actual == [
-            {"match": {"gender_type.has_male": True}},
-            {"match": {"gender_type.has_female": False}},
+            {"term": {"gender_type.has_male": True}},
+            {"term": {"gender_type.has_female": False}},
         ]
 
     def test_create_gender_type_param_1_1(self) -> None:
@@ -209,8 +209,8 @@ class TestCreateGenderTypeParam:
         actual = p.create_param()
 
         assert actual == [
-            {"match": {"gender_type.has_male": True}},
-            {"match": {"gender_type.has_female": True}},
+            {"term": {"gender_type.has_male": True}},
+            {"term": {"gender_type.has_female": True}},
         ]
 
     def test_create_gender_type_param_none(self) -> None:
