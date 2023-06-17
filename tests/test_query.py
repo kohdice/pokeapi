@@ -222,8 +222,15 @@ class TestCreatePokemonTypeParam:
         actual = p.create_param()
 
         assert actual == [
-            {"term": {"pokemon_type.type_1": "ほのお"}},
-            {"term": {"pokemon_type.type_2": None}},
+            {
+                "multi_match": {
+                    "query": "ほのお",
+                    "fields": [
+                        "pokemon_type.type_1.keyword",
+                        "pokemon_type.type_2.keyword",
+                    ],
+                }
+            }
         ]
 
     def test_create_pokemon_type_param_1_1(self) -> None:
@@ -231,15 +238,41 @@ class TestCreatePokemonTypeParam:
         actual = p.create_param()
 
         assert actual == [
-            {"term": {"pokemon_type.type_1": "ほのお"}},
-            {"term": {"pokemon_type.type_2": "ひこう"}},
+            {
+                "multi_match": {
+                    "query": "ほのお",
+                    "fields": [
+                        "pokemon_type.type_1.keyword",
+                        "pokemon_type.type_2.keyword",
+                    ],
+                }
+            },
+            {
+                "multi_match": {
+                    "query": "ひこう",
+                    "fields": [
+                        "pokemon_type.type_1.keyword",
+                        "pokemon_type.type_2.keyword",
+                    ],
+                }
+            },
         ]
 
     def test_create_pokemon_type_param_0_1(self) -> None:
         p = query.CreatePokemonTypeParam((None, "ひこう"))
         actual = p.create_param()
 
-        assert actual is None
+        assert actual == [
+            {
+                "multi_match": {
+                    "query": "ひこう",
+                    "fields": [
+                        "pokemon_type.type_1.keyword",
+                        "pokemon_type.type_2.keyword",
+                    ],
+                }
+            }
+        ]
 
     def test_create_pokemon_type_param_none(self) -> None:
         p = query.CreatePokemonTypeParam((None, None))
