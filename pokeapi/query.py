@@ -1,10 +1,10 @@
-from abc import abstractmethod
+from abc import ABC, abstractmethod
 
 
-class Query:
+class Query(ABC):
     """Abstract class for query creation"""
 
     @abstractmethod
-    def create_query(self):
+    def create_query(self, target):
         """Abstract method for query creation"""
         pass
