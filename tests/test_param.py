@@ -2,16 +2,16 @@ from typing import Any
 
 import pytest
 
-from pokeapi import query
+from pokeapi import param
 
 
 @pytest.mark.param()
 class TestAbstractParam:
-    class SubParam(query.Param):
+    class SubParam(param.Param):
         def create_param(self) -> dict[str, Any] | None:
             return None
 
-    class ErrorSubParam(query.Param):
+    class ErrorSubParam(param.Param):
         pass
 
     def test_create_param(self) -> None:
@@ -28,20 +28,20 @@ class TestAbstractParam:
 @pytest.mark.param()
 class TestCreatePokedexNumberParam:
     def test_create_pokedex_number_param(self) -> None:
-        q = query.CreatePokedexNumberParam("1")
-        actual = q.create_param()
+        p = param.CreatePokedexNumberParam("1")
+        actual = p.create_param()
 
         assert actual == {"term": {"national_pokedex_number": 1}}
 
     def test_create_pokedex_number_param_not_number(self) -> None:
-        q = query.CreatePokedexNumberParam("test")
-        actual = q.create_param()
+        p = param.CreatePokedexNumberParam("test")
+        actual = p.create_param()
 
         assert actual is None
 
     def test_create_pokedex_number_param_none(self) -> None:
-        q = query.CreatePokedexNumberParam(None)
-        actual = q.create_param()
+        p = param.CreatePokedexNumberParam(None)
+        actual = p.create_param()
 
         assert actual is None
 
@@ -49,13 +49,13 @@ class TestCreatePokedexNumberParam:
 @pytest.mark.param()
 class TestCreateNameParam:
     def test_create_name_param(self) -> None:
-        p = query.CreateNameParam("フシギダネ")
+        p = param.CreateNameParam("フシギダネ")
         actual = p.create_param()
 
         assert actual == {"term": {"name": "フシギダネ"}}
 
     def test_create_name_param_none(self) -> None:
-        p = query.CreateNameParam(None)
+        p = param.CreateNameParam(None)
         actual = p.create_param()
 
         assert actual is None
@@ -64,13 +64,13 @@ class TestCreateNameParam:
 @pytest.mark.param()
 class TestCreateformParam:
     def test_create_form_param(self) -> None:
-        p = query.CreateFormParam("れいじゅうフォルム")
+        p = param.CreateFormParam("れいじゅうフォルム")
         actual = p.create_param()
 
         assert actual == {"term": {"form.keyword": "れいじゅうフォルム"}}
 
     def test_create_form_param_none(self) -> None:
-        p = query.CreateFormParam(None)
+        p = param.CreateFormParam(None)
         actual = p.create_param()
 
         assert actual is None
@@ -79,13 +79,13 @@ class TestCreateformParam:
 @pytest.mark.param()
 class TestCreateRegionalVariantParam:
     def test_create_regional_variant_param(self) -> None:
-        p = query.CreateRegionalVariantParam("アローラのすがた")
+        p = param.CreateRegionalVariantParam("アローラのすがた")
         actual = p.create_param()
 
         assert actual == {"term": {"regional_variant.keyword": "アローラのすがた"}}
 
     def test_create_regional_variant_param_none(self) -> None:
-        p = query.CreateRegionalVariantParam(None)
+        p = param.CreateRegionalVariantParam(None)
         actual = p.create_param()
 
         assert actual is None
@@ -94,19 +94,19 @@ class TestCreateRegionalVariantParam:
 @pytest.mark.param()
 class TestCreateMegaEvolutionParam:
     def test_create_mega_evolution_param_false(self) -> None:
-        p = query.CreateMegaEvolutionParam("0")
+        p = param.CreateMegaEvolutionParam("0")
         actual = p.create_param()
 
         assert actual == {"term": {"is_mega_evolution": False}}
 
     def test_create_mega_evolution_param_true(self) -> None:
-        p = query.CreateMegaEvolutionParam("1")
+        p = param.CreateMegaEvolutionParam("1")
         actual = p.create_param()
 
         assert actual == {"term": {"is_mega_evolution": True}}
 
     def test_create_regional_variant_param_none(self) -> None:
-        p = query.CreateMegaEvolutionParam(None)
+        p = param.CreateMegaEvolutionParam(None)
         actual = p.create_param()
 
         assert actual is None
@@ -115,19 +115,19 @@ class TestCreateMegaEvolutionParam:
 @pytest.mark.param()
 class TestCreatePrimalReversionParam:
     def test_create_primal_reversion_param_false(self) -> None:
-        p = query.CreatePrimalReversionParam("0")
+        p = param.CreatePrimalReversionParam("0")
         actual = p.create_param()
 
         assert actual == {"term": {"is_primal_reversion": False}}
 
     def test_create_primal_reversion_param_true(self) -> None:
-        p = query.CreatePrimalReversionParam("1")
+        p = param.CreatePrimalReversionParam("1")
         actual = p.create_param()
 
         assert actual == {"term": {"is_primal_reversion": True}}
 
     def test_create_primal_reversion_param_none(self) -> None:
-        p = query.CreatePrimalReversionParam(None)
+        p = param.CreatePrimalReversionParam(None)
         actual = p.create_param()
 
         assert actual is None
@@ -136,19 +136,19 @@ class TestCreatePrimalReversionParam:
 @pytest.mark.param()
 class TestCreateLegendaryParam:
     def test_create_legendary_param_false(self) -> None:
-        p = query.CreateLegendaryParam("0")
+        p = param.CreateLegendaryParam("0")
         actual = p.create_param()
 
         assert actual == {"term": {"is_legendary": False}}
 
     def test_create_legendary_param_true(self) -> None:
-        p = query.CreateLegendaryParam("1")
+        p = param.CreateLegendaryParam("1")
         actual = p.create_param()
 
         assert actual == {"term": {"is_legendary": True}}
 
     def test_create_legendary_param_none(self) -> None:
-        p = query.CreateLegendaryParam(None)
+        p = param.CreateLegendaryParam(None)
         actual = p.create_param()
 
         assert actual is None
@@ -157,19 +157,19 @@ class TestCreateLegendaryParam:
 @pytest.mark.param()
 class TestCreateMythicalParam:
     def test_create_mythical_param_false(self) -> None:
-        p = query.CreateMythicalParam("0")
+        p = param.CreateMythicalParam("0")
         actual = p.create_param()
 
         assert actual == {"term": {"is_mythical": False}}
 
     def test_create_mythical_param_true(self) -> None:
-        p = query.CreateMythicalParam("1")
+        p = param.CreateMythicalParam("1")
         actual = p.create_param()
 
         assert actual == {"term": {"is_mythical": True}}
 
     def test_create_mythical_param_none(self) -> None:
-        p = query.CreateMythicalParam(None)
+        p = param.CreateMythicalParam(None)
         actual = p.create_param()
 
         assert actual is None
@@ -178,7 +178,7 @@ class TestCreateMythicalParam:
 @pytest.mark.param()
 class TestCreateGenderTypeParam:
     def test_create_gender_type_param_0_0(self) -> None:
-        p = query.CreateGenderTypeParam(("0", "0"))
+        p = param.CreateGenderTypeParam(("0", "0"))
         actual = p.create_param()
 
         assert actual == [
@@ -187,7 +187,7 @@ class TestCreateGenderTypeParam:
         ]
 
     def test_create_gender_type_param_0_1(self) -> None:
-        p = query.CreateGenderTypeParam(("0", "1"))
+        p = param.CreateGenderTypeParam(("0", "1"))
         actual = p.create_param()
 
         assert actual == [
@@ -196,7 +196,7 @@ class TestCreateGenderTypeParam:
         ]
 
     def test_create_gender_type_param_1_0(self) -> None:
-        p = query.CreateGenderTypeParam(("1", "0"))
+        p = param.CreateGenderTypeParam(("1", "0"))
         actual = p.create_param()
 
         assert actual == [
@@ -205,7 +205,7 @@ class TestCreateGenderTypeParam:
         ]
 
     def test_create_gender_type_param_1_1(self) -> None:
-        p = query.CreateGenderTypeParam(("1", "1"))
+        p = param.CreateGenderTypeParam(("1", "1"))
         actual = p.create_param()
 
         assert actual == [
@@ -214,13 +214,13 @@ class TestCreateGenderTypeParam:
         ]
 
     def test_create_gender_type_param_none(self) -> None:
-        p = query.CreateGenderTypeParam((None, None))
+        p = param.CreateGenderTypeParam((None, None))
         actual = p.create_param()
 
         assert actual is None
 
     def test_create_gender_type_param_invalid(self) -> None:
-        p = query.CreateGenderTypeParam(("foo", "bar"))
+        p = param.CreateGenderTypeParam(("foo", "bar"))
         actual = p.create_param()
 
         assert actual is None
@@ -229,7 +229,7 @@ class TestCreateGenderTypeParam:
 @pytest.mark.param()
 class TestCreatePokemonTypeParam:
     def test_create_pokemon_type_param_1_0(self) -> None:
-        p = query.CreatePokemonTypeParam(("ほのお", None))
+        p = param.CreatePokemonTypeParam(("ほのお", None))
         actual = p.create_param()
 
         assert actual == [
@@ -245,7 +245,7 @@ class TestCreatePokemonTypeParam:
         ]
 
     def test_create_pokemon_type_param_1_1(self) -> None:
-        p = query.CreatePokemonTypeParam(("ほのお", "ひこう"))
+        p = param.CreatePokemonTypeParam(("ほのお", "ひこう"))
         actual = p.create_param()
 
         assert actual == [
@@ -270,7 +270,7 @@ class TestCreatePokemonTypeParam:
         ]
 
     def test_create_pokemon_type_param_0_1(self) -> None:
-        p = query.CreatePokemonTypeParam((None, "ひこう"))
+        p = param.CreatePokemonTypeParam((None, "ひこう"))
         actual = p.create_param()
 
         assert actual == [
@@ -286,7 +286,7 @@ class TestCreatePokemonTypeParam:
         ]
 
     def test_create_pokemon_type_param_none(self) -> None:
-        p = query.CreatePokemonTypeParam((None, None))
+        p = param.CreatePokemonTypeParam((None, None))
         actual = p.create_param()
 
         assert actual is None
@@ -295,7 +295,7 @@ class TestCreatePokemonTypeParam:
 @pytest.mark.param()
 class TestCreateAbilityParam:
     def test_create_ability_param_1_0_0(self) -> None:
-        p = query.CreateAbilityParam(("にげあし", None, None))
+        p = param.CreateAbilityParam(("にげあし", None, None))
         actual = p.create_param()
 
         assert actual == [
@@ -312,7 +312,7 @@ class TestCreateAbilityParam:
         ]
 
     def test_create_ability_param_1_1_0(self) -> None:
-        p = query.CreateAbilityParam(("にげあし", "するどいめ", None))
+        p = param.CreateAbilityParam(("にげあし", "するどいめ", None))
         actual = p.create_param()
 
         assert actual == [
@@ -339,7 +339,7 @@ class TestCreateAbilityParam:
         ]
 
     def test_create_ability_param_1_1_1(self) -> None:
-        p = query.CreateAbilityParam(("にげあし", "するどいめ", "おみとおし"))
+        p = param.CreateAbilityParam(("にげあし", "するどいめ", "おみとおし"))
         actual = p.create_param()
 
         assert actual == [
@@ -376,7 +376,7 @@ class TestCreateAbilityParam:
         ]
 
     def test_create_ability_param_0_1_0(self) -> None:
-        p = query.CreateAbilityParam((None, "するどいめ", None))
+        p = param.CreateAbilityParam((None, "するどいめ", None))
         actual = p.create_param()
 
         assert actual == [
@@ -393,7 +393,7 @@ class TestCreateAbilityParam:
         ]
 
     def test_create_ability_param_0_1_1(self) -> None:
-        p = query.CreateAbilityParam((None, "するどいめ", "おみとおし"))
+        p = param.CreateAbilityParam((None, "するどいめ", "おみとおし"))
         actual = p.create_param()
 
         assert actual == [
@@ -420,7 +420,7 @@ class TestCreateAbilityParam:
         ]
 
     def test_create_ability_param_0_0_1(self) -> None:
-        p = query.CreateAbilityParam((None, None, "おみとおし"))
+        p = param.CreateAbilityParam((None, None, "おみとおし"))
         actual = p.create_param()
 
         assert actual == [
@@ -437,7 +437,7 @@ class TestCreateAbilityParam:
         ]
 
     def test_create_ability_param_none(self) -> None:
-        p = query.CreateAbilityParam((None, None, None))
+        p = param.CreateAbilityParam((None, None, None))
         actual = p.create_param()
 
         assert actual is None
