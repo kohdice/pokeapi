@@ -45,10 +45,12 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
-      - name: Build Containers and Call API
+      - name: Build Containers
         run: |
           cd docker
           STAGE=development docker-compose up -d
+      - name: Call API
+        run: |
           curl "http://localhost:8000" >> $GITHUB_STEP_SUMMARY
           curl "http://localhost:8000/pokemon" >> $GITHUB_STEP_SUMMARY
           curl "http://localhost:8000/pokemon/name/けつばん" >> $GITHUB_STEP_SUMMARY
