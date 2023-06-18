@@ -54,7 +54,8 @@ line_length = 79
 
 [tool.pytest.ini_options]
 markers = [
-    "param: mark as tests for query parameters (deselect with '-m \"not params\"')",
+    "param: mark as tests for query parameters (deselect with '-m \"not param\"')",
+    "query: mark as tests for queries (deselect with '-m \"not query\"')",
 ]
 
 [tool.coverage.run]
