@@ -20,7 +20,7 @@ class CreatePokedexNumberParam(Param):
         Param (object): Abstract class for search parameter creation.
     """
 
-    pokedex_number: str | None
+    pokedex_number: int | None
 
     def create_param(self) -> dict[str, dict[str, int]] | None:
         """Method to create search parameters of `National Pokédex Number`
@@ -33,12 +33,8 @@ class CreatePokedexNumberParam(Param):
         """
         if self.pokedex_number is None:
             return None
-        try:
-            pokedex_number = int(self.pokedex_number)
-        except ValueError:
-            return None
 
-        return {"term": {"national_pokedex_number": pokedex_number}}
+        return {"term": {"national_pokedex_number": self.pokedex_number}}
 
 
 @dataclass
