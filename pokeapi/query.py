@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from typing import Any
 
 from . import param
 
@@ -82,3 +83,45 @@ class CreatePokemonNameQuery(Query):
             return None
 
         return {"query": {"bool": {"must": name_param}}}
+
+
+class CreateConditionalSearchQuery(Query):
+    """Class with methods to create a query for elasticsearch
+        that search for Pokémon by some conditions.
+
+    Args:
+        Param (object): Abstract class for query creation.
+    """
+
+    def create_query(
+        self, conditions: tuple[Any, ...]
+    ) -> dict[str, dict[str, dict[str, list[Any]]]] | None:
+        """Method to create a query for elasticsearch
+            that searches for Pokémon by some conditions.
+
+        Args:
+            conditions (tuple): Conditions of search.
+
+        Returns:
+            dict[str, dict[str, dict[str, list[Any]]]] | None:
+            Dict of query for elasticsearch to search for Pokémon
+            by some conditions.
+        """
+
+        condition_params: list[dict] = []
+
+        for condition in conditions:
+            param = condition.create_param()
+
+            if param is None:
+                continue
+
+            if isinstance(param, list):
+                condition_params.extend(param)
+            else:
+                condition_params.append(param)
+
+        if not condition_params:
+            return None
+        else:
+            return {"query": {"bool": {"must": condition_params}}}
