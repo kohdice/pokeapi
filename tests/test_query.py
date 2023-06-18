@@ -4,6 +4,25 @@ from pokeapi import query
 
 
 @pytest.mark.query()
+class TestCreateNationalPokedexNumberQuery:
+    def test_create_query(self) -> None:
+        q = query.CreatePokedexNumberQuery()
+        actual = q.create_query("1")
+
+        assert actual == {
+            "query": {
+                "bool": {"must": {"term": {"national_pokedex_number": 1}}}
+            }
+        }
+
+    def test_create_query_none(self) -> None:
+        q = query.CreatePokedexNumberQuery()
+        actual = q.create_query(None)
+
+        assert actual is None
+
+
+@pytest.mark.query()
 class TestCreatePokemonNameQuery:
     def test_create_query(self) -> None:
         q = query.CreatePokemonNameQuery()
