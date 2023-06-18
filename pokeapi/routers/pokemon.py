@@ -15,6 +15,6 @@ async def read_pokemon_by_name(name: str) -> dict[str, str]:
 
 @router.get("/pokemon/pokedex_number/{pokedex_number}")
 async def read_pokemon_by_pokedex_number(
-    pokedex_number: str,
+    pokedex_number: int,
 ) -> dict[str, int | str]:
     return {"national_pokedex_number": pokedex_number, "name": "けつばん"}

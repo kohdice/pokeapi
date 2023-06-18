@@ -35,6 +35,21 @@ class TestPokemon:
             "name": "けつばん",
         }
 
+    def test_read_pokemon_by_pokedex_number_str(self) -> None:
+        client = TestClient(main.app)
+        responce = client.get("/pokemon/pokedex_number/hoge")
+
+        assert responce.status_code == 422
+        assert responce.json() == {
+            "detail": [
+                {
+                    "loc": ["path", "pokedex_number"],
+                    "msg": "value is not a valid integer",
+                    "type": "type_error.integer",
+                }
+            ]
+        }
+
     def test_read_pokemon_by_pokedex_number_none(self) -> None:
         client = TestClient(main.app)
         responce = client.get("/pokemon/pokedex_number/")
