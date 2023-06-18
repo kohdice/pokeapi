@@ -1,16 +1,11 @@
 from fastapi import FastAPI
 
+from .routers import pokemon
+
 app = FastAPI()
+app.include_router(pokemon.router)
 
 
 @app.get("/")
 def read_root() -> dict:
-    return {"Message": "Welcome to Pokédex!"}
-
-
-@app.get("/pokemon/{national_pokedex_number}")
-def read_pokemon(national_pokedex_number: int) -> dict:
-    return {
-        "National Pokédex Number": national_pokedex_number,
-        "Name": "けつばん",
-    }
+    return {"Prof. Oak": "Welcome to Pokédex!"}

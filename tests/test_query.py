@@ -7,7 +7,7 @@ from pokeapi import param, query
 class TestCreateNationalPokedexNumberQuery:
     def test_create_query(self) -> None:
         q = query.CreatePokedexNumberQuery()
-        actual = q.create_query("1")
+        actual = q.create_query(1)
 
         assert actual == {
             "query": {

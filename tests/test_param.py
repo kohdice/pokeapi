@@ -28,16 +28,10 @@ class TestAbstractParam:
 @pytest.mark.param()
 class TestCreatePokedexNumberParam:
     def test_create_pokedex_number_param(self) -> None:
-        p = param.CreatePokedexNumberParam("1")
+        p = param.CreatePokedexNumberParam(1)
         actual = p.create_param()
 
         assert actual == {"term": {"national_pokedex_number": 1}}
-
-    def test_create_pokedex_number_param_not_number(self) -> None:
-        p = param.CreatePokedexNumberParam("test")
-        actual = p.create_param()
-
-        assert actual is None
 
     def test_create_pokedex_number_param_none(self) -> None:
         p = param.CreatePokedexNumberParam(None)

@@ -22,7 +22,7 @@ class CreatePokedexNumberQuery(Query):
     """
 
     def create_query(
-        self, pokedex_number: str | None
+        self, pokedex_number: int | None
     ) -> dict[
         str, dict[str, dict[str, dict[str, dict[str, int]] | None]]
     ] | None:

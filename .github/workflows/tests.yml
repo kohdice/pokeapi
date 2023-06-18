@@ -48,4 +48,4 @@ jobs:
       - name: Build containers
         run: |
           cd docker
-          STAGE=local docker-compose up -d
+          STAGE=development docker-compose up -d --build
