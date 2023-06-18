@@ -56,3 +56,25 @@ class TestPokemon:
 
         assert responce.status_code == 404
         assert responce.json() == {"detail": "Not Found"}
+
+    def test_read_pokemon_by_conditions_str(self) -> None:
+        client = TestClient(main.app)
+        responce = client.get("/pokemon/conditions?condition=hoge")
+
+        assert responce.status_code == 200
+        assert responce.json() == {
+            "national_pokedex_number": 152,
+            "name": "けつばん",
+            "condition": "hoge",
+        }
+
+    def test_read_pokemon_by_conditions_int(self) -> None:
+        client = TestClient(main.app)
+        responce = client.get("/pokemon/conditions?condition=1")
+
+        assert responce.status_code == 200
+        assert responce.json() == {
+            "national_pokedex_number": 152,
+            "name": "けつばん",
+            "condition": 1,
+        }
