@@ -45,11 +45,8 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
-      - name: Build Containers
+      - name: Build Containers and Call API
         run: |
           cd docker
           docker-compose -f docker-compose_actions.yml up -d
-      - name: Call API
-        run: |
-          sleep 15
           docker-compose exec actions curl host.docker.internal:8000
