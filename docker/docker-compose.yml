@@ -48,4 +48,4 @@ services:
       - elasticsearch
 
 networks:
-  provate:
+  private:
