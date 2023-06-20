@@ -2,8 +2,8 @@ from dataclasses import FrozenInstanceError
 
 import pytest
 
-from pokeapi import config
-from pokeapi.config import Singleton
+from pokeapi.search import config
+from pokeapi.search.config import Singleton
 
 
 class TestSingleton:
@@ -20,7 +20,7 @@ class TestConfig:
         actual = config.get_config()
 
         assert actual.ES_INDEX == "pokemon"
-        assert actual.ES_CONNECTION_URL == "http://elasticsearch_test:9200"
+        assert actual.ES_CONNECTION_URL == "http://localhost:9200"
 
         actual_clone = config.get_config()
         assert actual is actual_clone

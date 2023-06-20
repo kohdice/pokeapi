@@ -1,6 +1,6 @@
 import pytest
 
-from pokeapi import param, query
+from pokeapi.search import param, query
 
 
 @pytest.mark.query()
