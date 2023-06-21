@@ -7,6 +7,7 @@ on:
     branches:
       - main
       - develop
+      - feature/*
   pull_request:
     types: [opened, synchronize]
 
@@ -49,3 +50,12 @@ jobs:
         run: |
           cd docker
           STAGE=development docker-compose up -d --build
+      - name: Wait for pokeapi to start
+        run: sleep 20s
+      - name: Get container IP address
+        id: get_ip
+        run: |
+          echo "::set-output name=ip_address::$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $(docker-compose ps -q app))"
+      - name: Test pokeapi with curl
+        run: |
+          curl http://${{ steps.get_ip.outputs.ip_address }}:8000/
