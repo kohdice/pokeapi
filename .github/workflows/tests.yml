@@ -55,6 +55,7 @@ jobs:
         id: get_container_id
         run: |
           echo "CONTAINER_ID=$(docker-compose -f docker/docker-compose.yml ps -q app)" >> $GITHUB_ENV
+        shell: bash
       - name: Get container IP address
         id: get_ip
         run: |
