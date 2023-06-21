@@ -52,12 +52,10 @@ jobs:
       - name: Wait for pokeapi to start
         run: sleep 20s
       - name: Get container ID
-        id: get_container_id
         run: |
-          echo "CONTAINER_ID=$(docker-compose -f docker/docker-compose.yml ps -q app)" >> $GITHUB_ENV
+          echo "CONTAINER_ID=$(STAGE=development docker-compose -f docker/docker-compose.yml ps -q app)" >> $GITHUB_ENV
         shell: bash
       - name: Get container IP address
-        id: get_ip
         run: |
           echo "IP_ADDRESS=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' ${{ env.CONTAINER_ID }})" >> $GITHUB_ENV
       - name: Test pokeapi with curl
