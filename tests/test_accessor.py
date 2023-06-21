@@ -12,7 +12,10 @@ class TestAccessor:
                 "bool": {"must": [{"term": {"national_pokedex_number": 1}}]}
             }
         }
-        actual = accessor.search_pokemon(query)
+        response = accessor.search_pokemon(query)
+        actual = []
+        for i in response:
+            actual.append(i)
 
         assert actual == [
             {
@@ -52,6 +55,9 @@ class TestAccessor:
                 "bool": {"must": [{"term": {"national_pokedex_number": 0}}]}
             }
         }
-        actual = accessor.search_pokemon(query)
+        response = accessor.search_pokemon(query)
+        actual = []
+        for i in response:
+            actual.append(i)
 
         assert actual == []

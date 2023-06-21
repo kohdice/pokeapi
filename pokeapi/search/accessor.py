@@ -1,18 +1,18 @@
-from typing import Any
+from typing import Any, Generator
 
 from elasticsearch import Elasticsearch
 
 from . import config
 
 
-def search_pokemon(query: dict[str, Any]) -> list[dict]:
+def search_pokemon(query: dict[str, Any]) -> Generator[dict, None, None]:
     """Method to connect to elasticsearch and search for Pokémon.
 
     Args:
         query (dict): Query to search for Pokémon.
 
-    Returns:
-        list[dict]: List with information on Pokémon.
+    Yields:
+        dict[str, Any]: Dict with Pokémon information.
 
     """
 
@@ -21,8 +21,6 @@ def search_pokemon(query: dict[str, Any]) -> list[dict]:
         conf.ES_CONNECTION_URL, http_compress=True, timeout=10
     ) as es:
         responce = es.search(index=conf.ES_INDEX, body=query)
-        pokemon_list: list[dict] = []
-        for doc in responce["hits"]["hits"]:
-            pokemon_list.append(doc["_source"])
 
-    return pokemon_list
+    for doc in responce["hits"]["hits"]:
+        yield doc["_source"]
