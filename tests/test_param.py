@@ -2,7 +2,7 @@ from typing import Any
 
 import pytest
 
-from pokeapi import param
+from pokeapi.search import param
 
 
 @pytest.mark.param()

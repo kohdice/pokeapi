@@ -9,7 +9,7 @@ readme = "README.md"
 python = "^3.10"
 fastapi = "^0.94.1"
 uvicorn = "^0.21.0"
-elasticsearch = "^8.6.2"
+elasticsearch = "=7.13.4"
 
 
 [tool.poetry.group.dev.dependencies]
@@ -55,6 +55,7 @@ line_length = 79
 
 [tool.pytest.ini_options]
 markers = [
+    "only_containers: mark as tests that can only be run in containers (deselect with '-m \"not only_container\"')",
     "param: mark as tests for query parameters (deselect with '-m \"not param\"')",
     "query: mark as tests for queries (deselect with '-m \"not query\"')",
 ]
@@ -104,4 +105,3 @@ lint-flake8 = "flake8 pokeapi tests"
 lint-mypy = "mypy pokeapi tests"
 lint-black = "black --check pokeapi tests"
 docs = "sphinx-apidoc -F -o docs pokeapi && sphinx-build docs docs/build"
-

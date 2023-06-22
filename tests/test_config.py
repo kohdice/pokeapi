@@ -1,9 +1,18 @@
+import os
 from dataclasses import FrozenInstanceError
+from typing import Generator
 
 import pytest
 
-from pokeapi import config
-from pokeapi.config import Singleton
+from pokeapi.search import config
+from pokeapi.search.config import Singleton
+
+
+def dynamic_connection_url() -> Generator[str, None, None]:
+    if os.getenv("STAGE") == "development":
+        yield "http://elasticsearch:9200"
+    else:
+        yield "http://localhost:9200"
 
 
 class TestSingleton:
@@ -16,11 +25,12 @@ class TestSingleton:
 
 class TestConfig:
     @pytest.mark.usefixtures("_setup_get_config")
-    def test_get_config(self) -> None:
+    @pytest.mark.parametrize("expected", dynamic_connection_url())
+    def test_get_config(self, expected) -> None:
         actual = config.get_config()
 
         assert actual.ES_INDEX == "pokemon"
-        assert actual.ES_CONNECTION_URL == "http://elasticsearch_test:9200"
+        assert actual.ES_CONNECTION_URL == expected
 
         actual_clone = config.get_config()
         assert actual is actual_clone
