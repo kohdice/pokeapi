@@ -30,8 +30,8 @@ jobs:
       - name: Install Dependencies
         run: |
           STAGE=development docker-compose -f docker/docker-compose.yml exec -T app poetry install
-      - name: Wait 5s
-        run: sleep 5s
+      - name: Wait 10s
+        run: sleep 10s
       - name: Run pytest
         run: |
           STAGE=development docker-compose -f docker/docker-compose.yml exec -T app poetry run pytest --cov=. --cov-branch --cov-report=term-missing --junitxml=./pytest.xml > ./pytest-coverage.txt
