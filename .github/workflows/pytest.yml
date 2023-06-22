@@ -1,4 +1,4 @@
-name: Continuous Integration of pokeapi
+name: Continuous Integration of pokeapi with pytest
 
 run-name: ${{ github.actor }} is testing out pokeapi with pytest
 
@@ -25,6 +25,8 @@ jobs:
       - name: Build Container
         run: |
           STAGE=development docker-compose -f docker/docker-compose.yml up -d --build
+      - name: Wait for pokeapi to start
+        run: sleep 10s
       - name: Install Dependencies
         run: |
           STAGE=development docker-compose -f docker/docker-compose.yml exec -T app poetry install
