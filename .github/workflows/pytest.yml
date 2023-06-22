@@ -1,0 +1,38 @@
+name: Continuous Integration of pokeapi
+
+run-name: ${{ github.actor }} is testing out pokeapi with pytest
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+  test:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.head_ref }}
+      - name: Branch Check
+        run: |
+          echo Branch: ${{ github.head_ref }}
+      - name: Build Container
+        run: |
+          STAGE=development docker-compose -f docker/docker-compose.yml up -d --build
+      - name: Install Dependencies
+        run: |
+          STAGE=development docker-compose -f docker/docker-compose.yml exec -T app poetry install
+      - name: Run pytest
+        run: |
+          STAGE=development docker-compose -f docker/docker-compose.yml exec -T app poetry run pytest --cov=. --cov-branch --cov-report=term-missing --junitxml=./pytest.xml > ./pytest-coverage.txt
+      - name: Pytest coverage comment
+        uses: MishaKav/pytest-coverage-comment@main
+        with:
+          pytest-coverage-path: ./pytest-coverage.txt
+          junitxml-path: ./pytest.xml
