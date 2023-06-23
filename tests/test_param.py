@@ -22,7 +22,7 @@ class TestAbstractParam:
 
     def test_not_implemented(self) -> None:
         with pytest.raises(TypeError):
-            self.ErrorSubParam()
+            self.ErrorSubParam()  # type: ignore
 
 
 @pytest.mark.param()

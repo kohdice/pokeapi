@@ -1,12 +1,13 @@
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
+from typing import Any
 
 
 class Param(ABC):
     """Abstract class for parameter creation"""
 
     @abstractmethod
-    def create_param(self):
+    def create_param(self) -> Any:
         """Abstract method for parameter creation"""
         pass
 

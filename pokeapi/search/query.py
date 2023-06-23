@@ -8,7 +8,7 @@ class Query(ABC):
     """Abstract class for query creation"""
 
     @abstractmethod
-    def create_query(self, target):
+    def create_query(self, target: Any) -> Any:
         """Abstract method for query creation"""
         pass
 
