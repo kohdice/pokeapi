@@ -2,6 +2,7 @@ from typing import Any, Generator
 
 from elasticsearch import Elasticsearch
 
+from ..schemas.pokemon import Pokemon
 from . import config
 
 
@@ -24,3 +25,41 @@ def search_pokemon(query: dict[str, Any]) -> Generator[dict, None, None]:
 
     for doc in responce["hits"]["hits"]:
         yield doc["_source"]
+
+
+def create_pokemon_response(
+    es_response: Generator[dict, None, None]
+) -> list[Pokemon]:
+    """Method to create a response to Pokémon schema.
+
+    Args:
+        es_response (Generator): Generator of Pokémon data
+        read from elasticsearch.
+
+    Returns:
+        list[Pokemon]: List with Pokémon information.
+
+    """
+
+    response: list[Pokemon] = []
+    for doc in es_response:
+        response.append(
+            Pokemon(
+                national_pokedex_number=doc["national_pokedex_number"],
+                name=doc["name"],
+                form=doc["form"],
+                regional_variant=doc["regional_variant"],
+                is_mega_evolution=doc["is_mega_evolution"],
+                is_primal_reversion=doc["is_primal_reversion"],
+                is_legendary=doc["is_legendary"],
+                is_mythical=doc["is_mythical"],
+                height=doc["height"],
+                weight=doc["weight"],
+                gender_type=doc["gender_type"],
+                pokemon_type=doc["pokemon_type"],
+                abilities=doc["abilities"],
+                base_stats=doc["base_stats"],
+            )
+        )
+
+    return response
