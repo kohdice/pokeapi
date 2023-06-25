@@ -31,9 +31,7 @@ class CreatePokedexNumberQuery(Query):
             pokedex_number (str): National Pokédex Number of Pokémon.
 
         Returns:
-            dict[
-                str, dict[str, dict[str, dict[str, dict[str, str]] | None]]
-            ] | None:
+            dict[str, dict[str, dict[str, dict[str, dict[str, str]]]]]:
             Dict of query for elasticsearch to search for Pokémon
             by National Pokédex Number.
 
@@ -55,10 +53,8 @@ class CreatePokemonNameQuery(Query):
     """
 
     def create_query(
-        self, pokemon_name: str | None
-    ) -> dict[
-        str, dict[str, dict[str, dict[str, dict[str, str]] | None]]
-    ] | None:
+        self, pokemon_name: str
+    ) -> dict[str, dict[str, dict[str, dict[str, dict[str, str]]]]]:
         """Method to create a query for elasticsearch
             that searches for Pokémon by name.
 
@@ -66,16 +62,11 @@ class CreatePokemonNameQuery(Query):
             pokemon_name (str): Name of Pokémon.
 
         Returns:
-            dict[
-                str, dict[str, dict[str, dict[str, dict[str, str]] | None]]
-            ] | None:
+            dict[str, dict[str, dict[str, dict[str, dict[str, str]]]]]:
             Dict of query for elasticsearch to search for Pokémon by name.
         """
 
         name_param = param.CreateNameParam(pokemon_name).create_param()
-
-        if name_param is None:
-            return None
 
         return {"query": {"bool": {"must": name_param}}}
 

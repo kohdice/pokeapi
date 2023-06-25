@@ -42,12 +42,6 @@ class TestCreateNameParam:
 
         assert actual == {"term": {"name": "フシギダネ"}}
 
-    def test_create_name_param_none(self) -> None:
-        p = param.CreateNameParam(None)
-        actual = p.create_param()
-
-        assert actual is None
-
 
 @pytest.mark.param()
 class TestCreateformParam:
