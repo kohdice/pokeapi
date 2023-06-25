@@ -21,9 +21,9 @@ class CreatePokedexNumberParam(Param):
         Param (object): Abstract class for search parameter creation.
     """
 
-    pokedex_number: int | None
+    pokedex_number: int
 
-    def create_param(self) -> dict[str, dict[str, int]] | None:
+    def create_param(self) -> dict[str, dict[str, int]]:
         """Method to create search parameters of `National Pokédex Number`
             for elasticsearch.
 
@@ -32,8 +32,6 @@ class CreatePokedexNumberParam(Param):
             Dict with search parameters of `National Pokémon Number`
             for elasticsearch
         """
-        if self.pokedex_number is None:
-            return None
 
         return {"term": {"national_pokedex_number": self.pokedex_number}}
 
