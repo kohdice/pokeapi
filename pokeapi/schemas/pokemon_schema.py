@@ -1,7 +1,7 @@
 from pydantic import BaseModel
 
 
-class Pokemon(BaseModel):
+class PokemonSchema(BaseModel):
     national_pokedex_number: int
     name: str
     form: str | None

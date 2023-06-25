@@ -1,9 +1,9 @@
 from fastapi import FastAPI
 
-from .routers import pokemon
+from .routers import pokemon_router
 
 app = FastAPI()
-app.include_router(pokemon.router)
+app.include_router(pokemon_router.router)
 
 
 @app.get("/")
