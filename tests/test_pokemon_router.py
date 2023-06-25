@@ -3,7 +3,7 @@ from fastapi.testclient import TestClient
 from pokeapi import main
 
 
-class TestPokemon:
+class TestPokemonRouter:
     def test_read_pokemon(self) -> None:
         client = TestClient(main.app)
         response = client.get("/pokemon")
