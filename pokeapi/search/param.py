@@ -28,7 +28,7 @@ class CreatePokedexNumberParam(Param):
             for elasticsearch.
 
         Returns:
-            dict[str, dict[str, int]] | None:
+            dict[str, dict[str, int]]:
             Dict with search parameters of `National Pokémon Number`
             for elasticsearch
         """
@@ -45,18 +45,17 @@ class CreateNameParam(Param):
         Param (object): Abstract class for search parameter creation.
     """
 
-    name: str | None
+    name: str
 
-    def create_param(self) -> dict[str, dict[str, str]] | None:
+    def create_param(self) -> dict[str, dict[str, str]]:
         """Method to create search parameters of `Name of Pokémon`
             for elasticsearch.
 
         Returns:
-            dict[str, dict[str, str]] | None:
+            dict[str, dict[str, str]]:
             Dict with search parameters of `Name of Pokémon`for elasticsearch
         """
-        if self.name is None:
-            return None
+
         return {"term": {"name": self.name}}
 
 
@@ -79,8 +78,10 @@ class CreateFormParam(Param):
             dict[str, dict[str, str]] | None:
             Dict with search parameters of `Form of Pokémon`for elasticsearch
         """
+
         if self.form is None:
             return None
+
         return {"term": {"form.keyword": self.form}}
 
 
@@ -104,8 +105,10 @@ class CreateRegionalVariantParam(Param):
             Dict with search parameters of `Regional Variant of Pokémon`
             for elasticsearch
         """
+
         if self.regional_variant is None:
             return None
+
         return {"term": {"regional_variant.keyword": self.regional_variant}}
 
 
@@ -129,6 +132,7 @@ class CreateMegaEvolutionParam(Param):
             Dict with search parameters of `Mega Evolution of Pokémon`
             for elasticsearch
         """
+
         match self.is_mega_evolution:
             case "0":
                 return {"term": {"is_mega_evolution": False}}
@@ -158,6 +162,7 @@ class CreatePrimalReversionParam(Param):
             Dict with search parameters of `Primal Reversion of Pokémon`
             for elasticsearch
         """
+
         match self.is_primal_reversion:
             case "0":
                 return {"term": {"is_primal_reversion": False}}
@@ -187,6 +192,7 @@ class CreateLegendaryParam(Param):
             Dict with search parameters of `Legendary of Pokémon`
             for elasticsearch
         """
+
         match self.is_legendary:
             case "0":
                 return {"term": {"is_legendary": False}}
@@ -216,6 +222,7 @@ class CreateMythicalParam(Param):
             Dict with search parameters of `Mythical of Pokémon`
             for elasticsearch
         """
+
         match self.is_mythical:
             case "0":
                 return {"term": {"is_mythical": False}}
@@ -245,6 +252,7 @@ class CreateGenderTypeParam(Param):
             List with search parameters of `Gender Type of Pokémon`
             for elasticsearch
         """
+
         if self.gender_type == (None, None):
             return None
 
@@ -291,6 +299,7 @@ class CreatePokemonTypeParam(Param):
             List with search parameters of `Type of Pokémon`
             for elasticsearch
         """
+
         if self.pokemon_type == (None, None):
             return None
 
@@ -335,6 +344,7 @@ class CreateAbilityParam(Param):
             List with search parameters of `Ability of Pokémon`
             for elasticsearch
         """
+
         if self.abilities == (None, None, None):
             return None
 
