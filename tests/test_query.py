@@ -15,12 +15,6 @@ class TestCreateNationalPokedexNumberQuery:
             }
         }
 
-    def test_create_query_none(self) -> None:
-        q = query.CreatePokedexNumberQuery()
-        actual = q.create_query(None)
-
-        assert actual is None
-
 
 @pytest.mark.query()
 class TestCreatePokemonNameQuery:

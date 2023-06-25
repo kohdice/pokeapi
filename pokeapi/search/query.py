@@ -22,10 +22,8 @@ class CreatePokedexNumberQuery(Query):
     """
 
     def create_query(
-        self, pokedex_number: int | None
-    ) -> dict[
-        str, dict[str, dict[str, dict[str, dict[str, int]] | None]]
-    ] | None:
+        self, pokedex_number: int
+    ) -> dict[str, dict[str, dict[str, dict[str, dict[str, int]]]]]:
         """Method to create a query for elasticsearch
             that searches for Pokémon by National Pokédex Number.
 
@@ -44,9 +42,6 @@ class CreatePokedexNumberQuery(Query):
         pokedex_number_param = param.CreatePokedexNumberParam(
             pokedex_number
         ).create_param()
-
-        if pokedex_number_param is None:
-            return None
 
         return {"query": {"bool": {"must": pokedex_number_param}}}
 
