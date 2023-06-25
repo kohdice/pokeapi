@@ -1,10 +1,10 @@
 from typing import Annotated
 
-from fastapi import APIRouter, Path
+from fastapi import APIRouter, Path, Query
 
 from ..schemas.pokemon import Pokemon
 from ..search import accessor
-from ..search.query import CreatePokedexNumberQuery
+from ..search.query import CreatePokedexNumberQuery, CreatePokemonNameQuery
 
 router = APIRouter()
 
@@ -14,9 +14,14 @@ async def read_pokemon() -> dict[str, str]:
     return {"name": "けつばん"}
 
 
-@router.get("/pokemon/name/{name}")
-async def read_pokemon_by_name(name: str) -> dict[str, str]:
-    return {"name": name}
+@router.get("/pokemon/name/{name}", response_model=list[Pokemon])
+async def read_pokemon_by_name(
+    name: Annotated[str, Query(title="Pokémon Name of Pokémon to get")]
+) -> list[Pokemon]:
+    query = CreatePokemonNameQuery().create_query(name)
+    es_response = accessor.search_pokemon(query)
+
+    return accessor.create_pokemon_response(es_response)
 
 
 @router.get(
@@ -31,6 +36,7 @@ async def read_pokemon_by_pokedex_number(
 ) -> list[Pokemon]:
     query = CreatePokedexNumberQuery().create_query(pokedex_number)
     es_response = accessor.search_pokemon(query)
+
     return accessor.create_pokemon_response(es_response)
 
 
