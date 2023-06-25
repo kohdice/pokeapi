@@ -6,17 +6,45 @@ from pokeapi import main
 class TestPokemon:
     def test_read_pokemon(self) -> None:
         client = TestClient(main.app)
-        responce = client.get("/pokemon")
+        response = client.get("/pokemon")
 
-        assert responce.status_code == 200
-        assert responce.json() == {"name": "けつばん"}
+        assert response.status_code == 200
+        for pokemon in response.json():
+            assert pokemon["name"] in [
+                "フシギダネ",
+                "フシギソウ",
+                "フシギバナ",
+                "メガフシギバナ",
+                "ヒトカゲ",
+                "リザード",
+                "リザードン",
+                "メガリザードンＸ",
+                "メガリザードンＹ",
+                "ゼニガメ",
+                "カメール",
+                "カメックス",
+                "メガカメックス",
+                "ピカチュウ",
+                "ライチュウ",
+                "オタチ",
+                "オオタチ",
+                "ミュウツー",
+                "メガミュウツーＸ",
+                "メガミュウツーＹ",
+                "ミュウ",
+                "カイオーガ",
+                "ゲンシカイオーガ",
+                "グラードン",
+                "ゲンシグラードン",
+                "ミミッキュ",
+            ]
 
     def test_read_pokemon_by_name(self) -> None:
         client = TestClient(main.app)
-        responce = client.get("/pokemon/name/フシギダネ")
+        response = client.get("/pokemon/name/フシギダネ")
 
-        assert responce.status_code == 200
-        assert responce.json() == [
+        assert response.status_code == 200
+        assert response.json() == [
             {
                 "national_pokedex_number": 1,
                 "name": "フシギダネ",
@@ -49,17 +77,17 @@ class TestPokemon:
 
     def test_read_pokemon_by_name_none(self) -> None:
         client = TestClient(main.app)
-        responce = client.get("/pokemon/name/")
+        response = client.get("/pokemon/name/")
 
-        assert responce.status_code == 404
-        assert responce.json() == {"detail": "Not Found"}
+        assert response.status_code == 404
+        assert response.json() == {"detail": "Not Found"}
 
     def test_read_pokemon_by_pokedex_number(self) -> None:
         client = TestClient(main.app)
-        responce = client.get("/pokemon/pokedex_number/1")
+        response = client.get("/pokemon/pokedex_number/1")
 
-        assert responce.status_code == 200
-        assert responce.json() == [
+        assert response.status_code == 200
+        assert response.json() == [
             {
                 "national_pokedex_number": 1,
                 "name": "フシギダネ",
@@ -92,17 +120,17 @@ class TestPokemon:
 
     def test_read_pokemon_by_pokedex_number_doesnt_exist(self) -> None:
         client = TestClient(main.app)
-        responce = client.get("/pokemon/pokedex_number/0")
+        response = client.get("/pokemon/pokedex_number/0")
 
-        assert responce.status_code == 200
-        assert responce.json() == []
+        assert response.status_code == 200
+        assert response.json() == []
 
     def test_read_pokemon_by_pokedex_number_str(self) -> None:
         client = TestClient(main.app)
-        responce = client.get("/pokemon/pokedex_number/hoge")
+        response = client.get("/pokemon/pokedex_number/hoge")
 
-        assert responce.status_code == 422
-        assert responce.json() == {
+        assert response.status_code == 422
+        assert response.json() == {
             "detail": [
                 {
                     "loc": ["path", "pokedex_number"],
@@ -114,17 +142,17 @@ class TestPokemon:
 
     def test_read_pokemon_by_pokedex_number_none(self) -> None:
         client = TestClient(main.app)
-        responce = client.get("/pokemon/pokedex_number/")
+        response = client.get("/pokemon/pokedex_number/")
 
-        assert responce.status_code == 404
-        assert responce.json() == {"detail": "Not Found"}
+        assert response.status_code == 404
+        assert response.json() == {"detail": "Not Found"}
 
     def test_read_pokemon_by_conditions_str(self) -> None:
         client = TestClient(main.app)
-        responce = client.get("/pokemon/conditions?condition=hoge")
+        response = client.get("/pokemon/conditions?condition=hoge")
 
-        assert responce.status_code == 200
-        assert responce.json() == {
+        assert response.status_code == 200
+        assert response.json() == {
             "national_pokedex_number": 152,
             "name": "けつばん",
             "condition": "hoge",
@@ -132,10 +160,10 @@ class TestPokemon:
 
     def test_read_pokemon_by_conditions_int(self) -> None:
         client = TestClient(main.app)
-        responce = client.get("/pokemon/conditions?condition=1")
+        response = client.get("/pokemon/conditions?condition=1")
 
-        assert responce.status_code == 200
-        assert responce.json() == {
+        assert response.status_code == 200
+        assert response.json() == {
             "national_pokedex_number": 152,
             "name": "けつばん",
             "condition": 1,
