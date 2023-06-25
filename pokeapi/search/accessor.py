@@ -21,9 +21,9 @@ def search_pokemon(query: dict[str, Any]) -> Generator[dict, None, None]:
     with Elasticsearch(
         conf.ES_CONNECTION_URL, http_compress=True, timeout=10
     ) as es:
-        responce = es.search(index=conf.ES_INDEX, body=query)
+        response = es.search(index=conf.ES_INDEX, body=query)
 
-    for doc in responce["hits"]["hits"]:
+    for doc in response["hits"]["hits"]:
         yield doc["_source"]
 
 
