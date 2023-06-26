@@ -19,6 +19,7 @@ from ..schemas.pokemon_schema import PokemonSchema
 from ..search import accessor
 from ..search.query import (
     CreateConditionalSearchQuery,
+    CreateKeywordQuery,
     CreatePokedexNumberQuery,
     CreatePokemonNameQuery,
 )
@@ -120,6 +121,16 @@ async def read_pokemon_by_conditions(
     )
 
     query = CreateConditionalSearchQuery().create_query(request_params)
+    es_response = accessor.search_pokemon(query)
+
+    return accessor.create_pokemon_response(es_response)
+
+
+@router.get("/pokemon/keyword/{keyword}", response_model=list[PokemonSchema])
+async def read_pokemon_by_keyword(
+    keyword: Annotated[str, Query(title="Keyword of Pokémon to get")]
+) -> list[PokemonSchema]:
+    query = CreateKeywordQuery().create_query(keyword)
     es_response = accessor.search_pokemon(query)
 
     return accessor.create_pokemon_response(es_response)
