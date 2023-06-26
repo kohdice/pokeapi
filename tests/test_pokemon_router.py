@@ -184,3 +184,46 @@ class TestPokemonRouter:
 
         assert response.status_code == 200
         assert response.json() == setup_null_conditions_res
+
+    def test_read_pokemon_by_keyword(self) -> None:
+        client = TestClient(main.app)
+        response = client.get("/pokemon/keyword/アローラ")
+
+        assert response.status_code == 200
+        assert response.json() == [
+            {
+                "national_pokedex_number": 26,
+                "name": "ライチュウ",
+                "form": None,
+                "regional_variant": "アローラのすがた",
+                "is_mega_evolution": False,
+                "is_primal_reversion": False,
+                "is_legendary": False,
+                "is_mythical": False,
+                "height": 0.7,
+                "weight": 21,
+                "gender_type": {"has_male": True, "has_female": True},
+                "pokemon_type": {"type_1": "でんき", "type_2": "エスパー"},
+                "abilities": {
+                    "ability_1": "サーフテール",
+                    "ability_2": None,
+                    "hidden_ability": None,
+                },
+                "base_stats": {
+                    "hp": 60,
+                    "attack": 85,
+                    "defense": 50,
+                    "special_attack": 95,
+                    "special_defense": 85,
+                    "speed": 110,
+                    "base_total": 485,
+                },
+            }
+        ]
+
+    def test_read_pokemon_by_keyword_none(self) -> None:
+        client = TestClient(main.app)
+        response = client.get("/pokemon/keyword/")
+
+        assert response.status_code == 404
+        assert response.json() == {"detail": "Not Found"}
