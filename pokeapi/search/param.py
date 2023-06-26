@@ -23,17 +23,17 @@ class CreatePokedexNumberParam(Param):
 
     pokedex_number: int
 
-    def create_param(self) -> dict[str, dict[str, int]]:
+    def create_param(self) -> list[dict[str, dict[str, int]]]:
         """Method to create search parameters of `National Pokédex Number`
             for elasticsearch.
 
         Returns:
-            dict[str, dict[str, int]]:
-            Dict with search parameters of `National Pokémon Number`
+            list[dict[str, dict[str, int]]]:
+            List with search parameters of `National Pokémon Number`
             for elasticsearch
         """
 
-        return {"term": {"national_pokedex_number": self.pokedex_number}}
+        return [{"term": {"national_pokedex_number": self.pokedex_number}}]
 
 
 @dataclass
@@ -47,16 +47,16 @@ class CreateNameParam(Param):
 
     name: str
 
-    def create_param(self) -> dict[str, dict[str, str]]:
+    def create_param(self) -> list[dict[str, dict[str, str]]]:
         """Method to create search parameters of `Name of Pokémon`
             for elasticsearch.
 
         Returns:
-            dict[str, dict[str, str]]:
-            Dict with search parameters of `Name of Pokémon`for elasticsearch
+            list[dict[str, dict[str, str]]]:
+            List with search parameters of `Name of Pokémon`for elasticsearch
         """
 
-        return {"term": {"name": self.name}}
+        return [{"term": {"name": self.name}}]
 
 
 @dataclass
@@ -121,7 +121,7 @@ class CreateMegaEvolutionParam(Param):
         Param (object): Abstract class for search parameter creation.
     """
 
-    is_mega_evolution: str | None
+    is_mega_evolution: bool | None
 
     def create_param(self) -> dict[str, dict[str, bool]] | None:
         """Method to create search parameters of `Mega Evolution of Pokémon`
@@ -134,9 +134,9 @@ class CreateMegaEvolutionParam(Param):
         """
 
         match self.is_mega_evolution:
-            case "0":
+            case False:
                 return {"term": {"is_mega_evolution": False}}
-            case "1":
+            case True:
                 return {"term": {"is_mega_evolution": True}}
             case _:
                 return None
@@ -151,7 +151,7 @@ class CreatePrimalReversionParam(Param):
         Param (object): Abstract class for search parameter creation.
     """
 
-    is_primal_reversion: str | None
+    is_primal_reversion: bool | None
 
     def create_param(self) -> dict[str, dict[str, bool]] | None:
         """Method to create search parameters of `Primal Reversion of Pokémon`
@@ -164,9 +164,9 @@ class CreatePrimalReversionParam(Param):
         """
 
         match self.is_primal_reversion:
-            case "0":
+            case False:
                 return {"term": {"is_primal_reversion": False}}
-            case "1":
+            case True:
                 return {"term": {"is_primal_reversion": True}}
             case _:
                 return None
@@ -181,7 +181,7 @@ class CreateLegendaryParam(Param):
         Param (object): Abstract class for search parameter creation.
     """
 
-    is_legendary: str | None
+    is_legendary: bool | None
 
     def create_param(self) -> dict[str, dict[str, bool]] | None:
         """Method to create search parameters of `Legendary of Pokémon`
@@ -194,9 +194,9 @@ class CreateLegendaryParam(Param):
         """
 
         match self.is_legendary:
-            case "0":
+            case False:
                 return {"term": {"is_legendary": False}}
-            case "1":
+            case True:
                 return {"term": {"is_legendary": True}}
             case _:
                 return None
@@ -211,7 +211,7 @@ class CreateMythicalParam(Param):
         Param (object): Abstract class for search parameter creation.
     """
 
-    is_mythical: str | None
+    is_mythical: bool | None
 
     def create_param(self) -> dict[str, dict[str, bool]] | None:
         """Method to create search parameters of `Mythical of Pokémon`
@@ -224,9 +224,9 @@ class CreateMythicalParam(Param):
         """
 
         match self.is_mythical:
-            case "0":
+            case False:
                 return {"term": {"is_mythical": False}}
-            case "1":
+            case True:
                 return {"term": {"is_mythical": True}}
             case _:
                 return None
@@ -241,7 +241,7 @@ class CreateGenderTypeParam(Param):
         Param (object): Abstract class for search parameter creation.
     """
 
-    gender_type: tuple[str | None, str | None]
+    gender_type: tuple[bool | None, bool | None]
 
     def create_param(self) -> list[dict[str, dict[str, bool]]] | None:
         """Method to create search parameters of `Gender Type of Pokémon`
@@ -260,11 +260,11 @@ class CreateGenderTypeParam(Param):
 
         for k, v in zip(("has_male", "has_female"), self.gender_type):
             match v:
-                case "0":
+                case False:
                     gender_param_list.append(
                         {"term": {f"gender_type.{k}": False}}
                     )
-                case "1":
+                case True:
                     gender_param_list.append(
                         {"term": {f"gender_type.{k}": True}}
                     )

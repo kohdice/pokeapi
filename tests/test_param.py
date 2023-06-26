@@ -31,7 +31,7 @@ class TestCreatePokedexNumberParam:
         p = param.CreatePokedexNumberParam(1)
         actual = p.create_param()
 
-        assert actual == {"term": {"national_pokedex_number": 1}}
+        assert actual == [{"term": {"national_pokedex_number": 1}}]
 
 
 @pytest.mark.param()
@@ -40,7 +40,7 @@ class TestCreateNameParam:
         p = param.CreateNameParam("フシギダネ")
         actual = p.create_param()
 
-        assert actual == {"term": {"name": "フシギダネ"}}
+        assert actual == [{"term": {"name": "フシギダネ"}}]
 
 
 @pytest.mark.param()
@@ -76,13 +76,13 @@ class TestCreateRegionalVariantParam:
 @pytest.mark.param()
 class TestCreateMegaEvolutionParam:
     def test_create_mega_evolution_param_false(self) -> None:
-        p = param.CreateMegaEvolutionParam("0")
+        p = param.CreateMegaEvolutionParam(False)
         actual = p.create_param()
 
         assert actual == {"term": {"is_mega_evolution": False}}
 
     def test_create_mega_evolution_param_true(self) -> None:
-        p = param.CreateMegaEvolutionParam("1")
+        p = param.CreateMegaEvolutionParam(True)
         actual = p.create_param()
 
         assert actual == {"term": {"is_mega_evolution": True}}
@@ -97,13 +97,13 @@ class TestCreateMegaEvolutionParam:
 @pytest.mark.param()
 class TestCreatePrimalReversionParam:
     def test_create_primal_reversion_param_false(self) -> None:
-        p = param.CreatePrimalReversionParam("0")
+        p = param.CreatePrimalReversionParam(False)
         actual = p.create_param()
 
         assert actual == {"term": {"is_primal_reversion": False}}
 
     def test_create_primal_reversion_param_true(self) -> None:
-        p = param.CreatePrimalReversionParam("1")
+        p = param.CreatePrimalReversionParam(True)
         actual = p.create_param()
 
         assert actual == {"term": {"is_primal_reversion": True}}
@@ -118,13 +118,13 @@ class TestCreatePrimalReversionParam:
 @pytest.mark.param()
 class TestCreateLegendaryParam:
     def test_create_legendary_param_false(self) -> None:
-        p = param.CreateLegendaryParam("0")
+        p = param.CreateLegendaryParam(False)
         actual = p.create_param()
 
         assert actual == {"term": {"is_legendary": False}}
 
     def test_create_legendary_param_true(self) -> None:
-        p = param.CreateLegendaryParam("1")
+        p = param.CreateLegendaryParam(True)
         actual = p.create_param()
 
         assert actual == {"term": {"is_legendary": True}}
@@ -139,13 +139,13 @@ class TestCreateLegendaryParam:
 @pytest.mark.param()
 class TestCreateMythicalParam:
     def test_create_mythical_param_false(self) -> None:
-        p = param.CreateMythicalParam("0")
+        p = param.CreateMythicalParam(False)
         actual = p.create_param()
 
         assert actual == {"term": {"is_mythical": False}}
 
     def test_create_mythical_param_true(self) -> None:
-        p = param.CreateMythicalParam("1")
+        p = param.CreateMythicalParam(True)
         actual = p.create_param()
 
         assert actual == {"term": {"is_mythical": True}}
@@ -160,7 +160,7 @@ class TestCreateMythicalParam:
 @pytest.mark.param()
 class TestCreateGenderTypeParam:
     def test_create_gender_type_param_0_0(self) -> None:
-        p = param.CreateGenderTypeParam(("0", "0"))
+        p = param.CreateGenderTypeParam((False, False))
         actual = p.create_param()
 
         assert actual == [
@@ -169,7 +169,7 @@ class TestCreateGenderTypeParam:
         ]
 
     def test_create_gender_type_param_0_1(self) -> None:
-        p = param.CreateGenderTypeParam(("0", "1"))
+        p = param.CreateGenderTypeParam((False, True))
         actual = p.create_param()
 
         assert actual == [
@@ -178,7 +178,7 @@ class TestCreateGenderTypeParam:
         ]
 
     def test_create_gender_type_param_1_0(self) -> None:
-        p = param.CreateGenderTypeParam(("1", "0"))
+        p = param.CreateGenderTypeParam((True, False))
         actual = p.create_param()
 
         assert actual == [
@@ -187,7 +187,7 @@ class TestCreateGenderTypeParam:
         ]
 
     def test_create_gender_type_param_1_1(self) -> None:
-        p = param.CreateGenderTypeParam(("1", "1"))
+        p = param.CreateGenderTypeParam((True, True))
         actual = p.create_param()
 
         assert actual == [
@@ -202,7 +202,7 @@ class TestCreateGenderTypeParam:
         assert actual is None
 
     def test_create_gender_type_param_invalid(self) -> None:
-        p = param.CreateGenderTypeParam(("foo", "bar"))
+        p = param.CreateGenderTypeParam(("foo", "bar"))  # type: ignore
         actual = p.create_param()
 
         assert actual is None
