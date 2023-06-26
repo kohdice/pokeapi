@@ -6,7 +6,9 @@ from ..schemas.pokemon_schema import PokemonSchema
 from . import config
 
 
-def search_pokemon(query: dict[str, Any]) -> Generator[dict, None, None]:
+def search_pokemon(
+    query: dict[str, dict[str, dict[str, list[Any]]]]
+) -> Generator[dict, None, None]:
     """Method to connect to elasticsearch and search for Pokémon.
 
     Args:
