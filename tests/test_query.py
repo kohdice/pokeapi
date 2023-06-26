@@ -205,3 +205,34 @@ class TestCreateConditionalSearchQuery:
         actual = q.create_query(conditions)
 
         assert actual == {"query": {"bool": {"must": []}}}
+
+
+class TestCreateKeywordQuery:
+    def test_create_query(self) -> None:
+        q = query.CreateKeywordQuery()
+        actual = q.create_query("ほのお")
+
+        assert actual == {
+            "query": {
+                "bool": {
+                    "must": [
+                        {
+                            "multi_match": {
+                                "query": "ほのお",
+                                "operator": "and",
+                                "fields": [
+                                    "abilities.ability_1",
+                                    "abilities.ability_2",
+                                    "abilities.hidden_ability",
+                                    "form",
+                                    "name",
+                                    "pokemon_type.type_1",
+                                    "pokemon_type.type_2",
+                                    "regional_variant",
+                                ],
+                            }
+                        }
+                    ]
+                }
+            }
+        }

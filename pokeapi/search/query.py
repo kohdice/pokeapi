@@ -109,3 +109,32 @@ class CreateConditionalSearchQuery(Query):
 
         else:
             return {"query": {"bool": {"must": condition_params}}}
+
+
+class CreateKeywordQuery(Query):
+    """Class with methods to create a query for elasticsearch
+        that search for keyword.
+
+    Args:
+        Param (object): Abstract class for query creation.
+    """
+
+    def create_query(
+        self, keyword: str
+    ) -> dict[
+        str, dict[str, dict[str, list[dict[str, dict[str, str | list[str]]]]]]
+    ]:
+        """Method to create a query for elasticsearch
+            that searches for Pokémon by name.
+
+        Args:
+            keyword (str): Keyword used for search.
+
+        Returns:
+            dict[str, dict[str, dict[str, list[dict[str, dict[str, str]]]]]]:
+            Dict of query for elasticsearch to search for Pokémon by name.
+        """
+
+        keyword_param = param.CreateKeywordParam(keyword).create_param()
+
+        return {"query": {"bool": {"must": keyword_param}}}
