@@ -427,13 +427,13 @@ class TestCreateAbilityParam:
 
 class TestCreateKeywordParam:
     def test_create_param(self) -> None:
-        p = param.CreateKeywordParam("ほのお")
+        p = param.CreateKeywordParam("アローラ")
         actual = p.create_param()
 
         assert actual == [
             {
                 "multi_match": {
-                    "query": "ほのお",
+                    "query": "アローラ",
                     "operator": "and",
                     "fields": [
                         "abilities.ability_1",

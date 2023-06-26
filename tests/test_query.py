@@ -210,7 +210,7 @@ class TestCreateConditionalSearchQuery:
 class TestCreateKeywordQuery:
     def test_create_query(self) -> None:
         q = query.CreateKeywordQuery()
-        actual = q.create_query("ほのお")
+        actual = q.create_query("アローラ")
 
         assert actual == {
             "query": {
@@ -218,7 +218,7 @@ class TestCreateKeywordQuery:
                     "must": [
                         {
                             "multi_match": {
-                                "query": "ほのお",
+                                "query": "アローラ",
                                 "operator": "and",
                                 "fields": [
                                     "abilities.ability_1",
