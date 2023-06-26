@@ -1,3 +1,5 @@
+from typing import Any
+
 from fastapi.testclient import TestClient
 
 from pokeapi import main
@@ -147,24 +149,38 @@ class TestPokemonRouter:
         assert response.status_code == 404
         assert response.json() == {"detail": "Not Found"}
 
-    def test_read_pokemon_by_conditions_str(self) -> None:
+    def test_read_pokemon_by_conditions_str(
+        self, setup_conditions_mimikkyu_res: list[dict[str, Any]]
+    ) -> None:
         client = TestClient(main.app)
-        response = client.get("/pokemon/conditions?condition=hoge")
+        response = client.get("/pokemon/conditions?ability_1=ばけのかわ")
 
         assert response.status_code == 200
-        assert response.json() == {
-            "national_pokedex_number": 152,
-            "name": "けつばん",
-            "condition": "hoge",
-        }
+        assert response.json() == setup_conditions_mimikkyu_res
 
-    def test_read_pokemon_by_conditions_int(self) -> None:
+    def test_read_pokemon_by_conditions_bool(
+        self, setup_conditions_bool_res: list[dict[str, Any]]
+    ) -> None:
         client = TestClient(main.app)
-        response = client.get("/pokemon/conditions?condition=1")
+        response = client.get("/pokemon/conditions?has_male=0")
 
         assert response.status_code == 200
-        assert response.json() == {
-            "national_pokedex_number": 152,
-            "name": "けつばん",
-            "condition": 1,
-        }
+        assert response.json() == setup_conditions_bool_res
+
+    def test_read_pokemon_by_conditions_multi_param(
+        self, setup_conditions_mimikkyu_res: list[dict[str, Any]]
+    ) -> None:
+        client = TestClient(main.app)
+        response = client.get("/pokemon/conditions?ability_1=ばけのかわ&has_male=1")
+
+        assert response.status_code == 200
+        assert response.json() == setup_conditions_mimikkyu_res
+
+    def test_read_pokemon_by_conditions_none(
+        self, setup_null_conditions_res: list[dict[str, Any]]
+    ) -> None:
+        client = TestClient(main.app)
+        response = client.get("/pokemon/conditions/")
+
+        assert response.status_code == 200
+        assert response.json() == setup_null_conditions_res
