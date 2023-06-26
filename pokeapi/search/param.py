@@ -53,7 +53,7 @@ class CreateNameParam(Param):
 
         Returns:
             list[dict[str, dict[str, str]]]:
-            List with search parameters of `Name of Pokémon`for elasticsearch
+            List with search parameters of `Name of Pokémon` for elasticsearch.
         """
 
         return [{"term": {"name": self.name}}]
@@ -76,7 +76,7 @@ class CreateFormParam(Param):
 
         Returns:
             dict[str, dict[str, str]] | None:
-            Dict with search parameters of `Form of Pokémon`for elasticsearch
+            Dict with search parameters of `Form of Pokémon` for elasticsearch.
         """
 
         if self.form is None:
@@ -366,3 +366,46 @@ class CreateAbilityParam(Param):
                 )
 
         return ability_param_list
+
+
+@dataclass
+class CreateKeywordParam(Param):
+    """Dataclass to create search parameters of `keyword`
+        for elasticsearch.
+
+    Args:
+        Param (object): Abstract class for search parameter creation.
+    """
+
+    keyword: str
+
+    def create_param(
+        self,
+    ) -> list[dict[str, dict[str, str | list[str]]]]:
+        """Method to create search parameters of `keyword`
+            for elasticsearch.
+
+        Returns:
+            list[dict[str, dict[str, str | list[str]]]]:
+            List with search parameters of `keyword`
+            for elasticsearch
+        """
+
+        return [
+            {
+                "multi_match": {
+                    "query": self.keyword,
+                    "operator": "and",
+                    "fields": [
+                        "abilities.ability_1",
+                        "abilities.ability_2",
+                        "abilities.hidden_ability",
+                        "form",
+                        "name",
+                        "pokemon_type.type_1",
+                        "pokemon_type.type_2",
+                        "regional_variant",
+                    ],
+                }
+            }
+        ]

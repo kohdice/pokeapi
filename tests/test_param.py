@@ -423,3 +423,28 @@ class TestCreateAbilityParam:
         actual = p.create_param()
 
         assert actual is None
+
+
+class TestCreateKeywordParam:
+    def test_create_param(self) -> None:
+        p = param.CreateKeywordParam("ほのお")
+        actual = p.create_param()
+
+        assert actual == [
+            {
+                "multi_match": {
+                    "query": "ほのお",
+                    "operator": "and",
+                    "fields": [
+                        "abilities.ability_1",
+                        "abilities.ability_2",
+                        "abilities.hidden_ability",
+                        "form",
+                        "name",
+                        "pokemon_type.type_1",
+                        "pokemon_type.type_2",
+                        "regional_variant",
+                    ],
+                }
+            }
+        ]
