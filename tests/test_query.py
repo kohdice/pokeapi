@@ -11,7 +11,7 @@ class TestCreateNationalPokedexNumberQuery:
 
         assert actual == {
             "query": {
-                "bool": {"must": {"term": {"national_pokedex_number": 1}}}
+                "bool": {"must": [{"term": {"national_pokedex_number": 1}}]}
             }
         }
 
@@ -23,7 +23,7 @@ class TestCreatePokemonNameQuery:
         actual = q.create_query("フシギダネ")
 
         assert actual == {
-            "query": {"bool": {"must": {"term": {"name": "フシギダネ"}}}}
+            "query": {"bool": {"must": [{"term": {"name": "フシギダネ"}}]}}
         }
 
 
@@ -57,7 +57,7 @@ class TestCreateConditionalSearchQuery:
 
     def test_create_query_mega_evolution(self) -> None:
         q = query.CreateConditionalSearchQuery()
-        conditions = (param.CreateMegaEvolutionParam("1"),)
+        conditions = (param.CreateMegaEvolutionParam(True),)
         actual = q.create_query(conditions)
 
         assert actual == {
@@ -68,7 +68,7 @@ class TestCreateConditionalSearchQuery:
 
     def test_create_query_primal_reversion(self) -> None:
         q = query.CreateConditionalSearchQuery()
-        conditions = (param.CreatePrimalReversionParam("1"),)
+        conditions = (param.CreatePrimalReversionParam(True),)
         actual = q.create_query(conditions)
 
         assert actual == {
@@ -79,7 +79,7 @@ class TestCreateConditionalSearchQuery:
 
     def test_create_query_legendary(self) -> None:
         q = query.CreateConditionalSearchQuery()
-        conditions = (param.CreateLegendaryParam("1"),)
+        conditions = (param.CreateLegendaryParam(True),)
         actual = q.create_query(conditions)
 
         assert actual == {
@@ -88,7 +88,7 @@ class TestCreateConditionalSearchQuery:
 
     def test_create_query_mythical(self) -> None:
         q = query.CreateConditionalSearchQuery()
-        conditions = (param.CreateMythicalParam("1"),)
+        conditions = (param.CreateMythicalParam(True),)
         actual = q.create_query(conditions)
 
         assert actual == {
@@ -97,7 +97,9 @@ class TestCreateConditionalSearchQuery:
 
     def test_create_query_gender_type(self) -> None:
         q = query.CreateConditionalSearchQuery()
-        conditions = (param.CreateGenderTypeParam(("1", "hoge")),)
+        conditions = (
+            param.CreateGenderTypeParam((True, "hoge")),  # type: ignore
+        )
         actual = q.create_query(conditions)
 
         assert actual == {
@@ -202,4 +204,4 @@ class TestCreateConditionalSearchQuery:
         )
         actual = q.create_query(conditions)
 
-        assert actual is None
+        assert actual == {"query": {"bool": {"must": []}}}
