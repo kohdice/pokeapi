@@ -28,7 +28,7 @@ class CreatePokedexNumberQuery(Query):
             that searches for Pokémon by National Pokédex Number.
 
         Args:
-            pokedex_number (str): National Pokédex Number of Pokémon.
+            pokedex_number (str): Target of `national_pokédex_number`.
 
         Returns:
             dict[str, dict[str, dict[str, list[dict[str, dict[str, int]]]]]]:
@@ -59,7 +59,7 @@ class CreatePokemonNameQuery(Query):
             that searches for Pokémon by name.
 
         Args:
-            pokemon_name (str): Name of Pokémon.
+            pokemon_name (str): Target of `name`.
 
         Returns:
             dict[str, dict[str, dict[str, list[dict[str, dict[str, str]]]]]]:
@@ -107,8 +107,7 @@ class CreateConditionalSearchQuery(Query):
             else:
                 condition_params.append(param)
 
-        else:
-            return {"query": {"bool": {"must": condition_params}}}
+        return {"query": {"bool": {"must": condition_params}}}
 
 
 class CreateKeywordQuery(Query):

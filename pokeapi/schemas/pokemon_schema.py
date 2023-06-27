@@ -2,6 +2,8 @@ from pydantic import BaseModel
 
 
 class PokemonSchema(BaseModel):
+    """Response schema class for Pokémon."""
+
     national_pokedex_number: int
     name: str
     form: str | None
