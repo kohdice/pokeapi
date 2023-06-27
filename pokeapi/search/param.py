@@ -269,7 +269,7 @@ class CreateGenderTypeParam(Param):
                         {"term": {f"gender_type.{k}": True}}
                     )
                 case _:
-                    pass
+                    continue
 
         if gender_param_list:
             return gender_param_list

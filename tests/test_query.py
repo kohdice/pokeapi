@@ -207,6 +207,7 @@ class TestCreateConditionalSearchQuery:
         assert actual == {"query": {"bool": {"must": []}}}
 
 
+@pytest.mark.query()
 class TestCreateKeywordQuery:
     def test_create_query(self) -> None:
         q = query.CreateKeywordQuery()
