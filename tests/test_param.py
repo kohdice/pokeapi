@@ -425,6 +425,7 @@ class TestCreateAbilityParam:
         assert actual is None
 
 
+@pytest.mark.param()
 class TestCreateKeywordParam:
     def test_create_param(self) -> None:
         p = param.CreateKeywordParam("アローラ")
