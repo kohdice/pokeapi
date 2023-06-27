@@ -55,7 +55,7 @@ If the following message is displayed, the functionality test is complete.
 ```
 
 ## 4. Specifications
-- For detailed specifications of the API, refer to [this page]().
+- For detailed specifications of the API, refer to [this page](https://kohdice.github.io/pokeapi/).
 - The following Pokémon are available for search (data inserted as test data):[^1]
   - フシギダネ
   - フシギソウ
