@@ -55,7 +55,6 @@ line_length = 79
 
 [tool.pytest.ini_options]
 markers = [
-    "only_containers: mark as tests that can only be run in containers (deselect with '-m \"not only_container\"')",
     "param: mark as tests for query parameters (deselect with '-m \"not param\"')",
     "query: mark as tests for queries (deselect with '-m \"not query\"')",
 ]
