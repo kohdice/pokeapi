@@ -32,7 +32,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
   </script>
 </body>
 </html>
-"""
+"""  # noqa: errors
 
 if __name__ == "__main__":
     with open("docs/static/index.html", "w") as fd:
