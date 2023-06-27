@@ -83,10 +83,13 @@
         "is_legendary": {
           "type": "boolean"
         },
+        "is_mega_evolution": {
+          "type": "boolean"
+        },
         "is_mythical": {
           "type": "boolean"
         },
-        "mega_evolution": {
+        "is_primal_reversion": {
           "type": "boolean"
         },
         "name": {
@@ -122,9 +125,6 @@
               }
             }
           }
-        },
-        "primal_reversion": {
-          "type": "boolean"
         },
         "regional_variant": {
           "type": "text",

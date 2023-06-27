@@ -1,16 +1,19 @@
 from fastapi import FastAPI
 
+from .routers import pokemon_router
+from .schemas.message_schema import RootMessageSchema
+
 app = FastAPI()
+app.include_router(pokemon_router.router)
 
 
-@app.get("/")
-def read_root() -> dict:
-    return {"Message": "Welcome to Pokédex!"}
+@app.get("/", response_model=RootMessageSchema)
+def read_root() -> RootMessageSchema:
+    """Path operation function for root endpoint.
 
+    Returns:
+        RootMessageSchema: Object for response of root endpoint.
 
-@app.get("/pokemon/{national_pokedex_number}")
-def read_pokemon(national_pokedex_number: int) -> dict:
-    return {
-        "National Pokédex Number": national_pokedex_number,
-        "Name": "けつばん",
-    }
+    """
+
+    return RootMessageSchema(message="Welcome to Pokédex!")

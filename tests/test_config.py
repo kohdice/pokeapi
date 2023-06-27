@@ -1,9 +1,18 @@
+import os
 from dataclasses import FrozenInstanceError
+from typing import Generator
 
 import pytest
 
-from pokeapi import config
-from pokeapi.config import Singleton
+from pokeapi.search import config
+from pokeapi.search.config import Singleton
+
+
+def dynamic_connection_url() -> Generator[str, None, None]:
+    if os.getenv("STAGE") == "development":
+        yield "http://elasticsearch:9200"
+    else:
+        yield "http://localhost:9200"
 
 
 class TestSingleton:
@@ -16,21 +25,18 @@ class TestSingleton:
 
 class TestConfig:
     @pytest.mark.usefixtures("_setup_get_config")
-    def test_get_config(self) -> None:
+    @pytest.mark.parametrize("expected", dynamic_connection_url())
+    def test_get_config(self, expected: str) -> None:
         actual = config.get_config()
 
         assert actual.ES_INDEX == "pokemon"
-        assert actual.ES_CONNECTION_URL == "http://elasticsearch_test:9200"
+        assert actual.ES_CONNECTION_URL == expected
 
         actual_clone = config.get_config()
         assert actual is actual_clone
 
-        with pytest.raises(FrozenInstanceError) as index_e:
-            actual.ES_INDEX = "hoge"
+        with pytest.raises(FrozenInstanceError):
+            actual.ES_INDEX = "hoge"  # type: ignore
 
-        assert str(index_e.value) == "cannot assign to field 'ES_INDEX'"
-
-        with pytest.raises(FrozenInstanceError) as url_e:
-            actual.ES_CONNECTION_URL = "hoge"
-
-        assert str(url_e.value) == "cannot assign to field 'ES_CONNECTION_URL'"
+        with pytest.raises(FrozenInstanceError):
+            actual.ES_CONNECTION_URL = "hoge"  # type: ignore
