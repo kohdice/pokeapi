@@ -111,11 +111,11 @@ poetry shell
 ```bash
 task test
 ```
-- Run formatters
+- Run formatter
 ```bash
 task fmt
 ```
-- Run linters
+- Run linter
 ```bash
 tash lint
 ```
