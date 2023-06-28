@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pokeapi"
-version = "0.1.0"
+version = "0.1.2"
 description = "API for Pokédex built in FastAPI."
 authors = ["kohdice <kohdice@gmail.com>"]
 readme = "README.md"
@@ -71,7 +71,7 @@ exclude_lines = ["@abstractmethod"]
 
 [project]
 name = "pokeapi"
-version = "0.1.0"
+version = "0.1.2"
 description = "API for Pokédex built in FastAPI."
 readme = "README.md"
 
