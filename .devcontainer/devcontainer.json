@@ -1,6 +1,6 @@
 {
   "name": "Python",
-  "dockerComposeFile": ["../docker/docker-compose.yml", "docker-compose.yml"],
+  "dockerComposeFile": "../docker/docker-compose.yml",
   "postCreateCommand": "bash ./.devcontainer/entrypoint.sh",
   "service": "app",
   "workspaceFolder": "/workspace",
@@ -34,10 +34,10 @@
         "python.testing.unittestEnabled": false,
         "python.testing.pytestEnabled": true,
         "python.testing.pytestArgs": ["tests"],
-        "autoDocstring.docstringFormat": "google",
-        "dotfiles.repository": "kohdice/dotfiles-devcontainer",
-        "dotfiles.targetPath": "~/dotfiles",
-        "dotfiles.installCommand": "~/dotfiles/install.sh"
+        "autoDocstring.docstringFormat": "google"
+        // "dotfiles.repository": "<your dotfiles repository>",
+        // "dotfiles.targetPath": "~/dotfiles",
+        // "dotfiles.installCommand": "~/dotfiles/install.sh"
       },
       "extensions": [
         "ms-azuretools.vscode-docker",
