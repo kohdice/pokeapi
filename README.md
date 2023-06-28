@@ -97,7 +97,7 @@ If the following message is displayed, the functionality test is complete.
 - Install Poetry by referring to the [official documentation](https://python-poetry.org/docs/).
 
 ### 5.3. Create Development Virtual Environment
-1. Create the virtual environment.
+1. Create a virtual environment.
 ```bash
 poetry install
 ```
@@ -105,19 +105,20 @@ poetry install
 ```bash
 poetry shell
 ```
+3. Once the virtual environment is active, setup is complete.
 
 ### 5.4. Scripts
 - Run tests
 ```bash
 task test
 ```
-- Run formatter
+- Run formatters
 ```bash
 task fmt
 ```
-- Run linter
+- Run linters
 ```bash
-tash lint
+task lint
 ```
 
 ## 6. Setup Development Environment Using Dev Containers
@@ -128,18 +129,25 @@ tash lint
 - If the `.venv` directory exists, delete it before using Dev Containers.
 
 ### 6.2. Install Extension
-Install [Dev Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) in VSCode.
+Install the [Dev Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) extension in VSCode.
 
 ### 6.3. Build Dev Containers
-1. Click on the icon resembling `><` at the lower left corner of VSCode and select `Reopen in Container`.
+1. Click on the icon resembling `><` at the lower-left corner of VSCode and select `Reopen in Container`.
 2. Press any key when the following message appears in the terminal.
 ```bash
 Done. Press any key to close the terminal.
 ```
 3. Access [localhost:8000](http://localhost:8000/).<br>
-If the following message is displayed, the functionality test is complete.
+If the following message is displayed, setup is complete.
 ```bash
 {"message":"Welcome to Pokédex!"}
+```
+4. If using dotfiles<br>
+Uncomment the following section in `.devcontainer/devcontainer.json` and replace it with your own dotfiles.
+```json
+// "dotfiles.repository": "<your dotfiles repository>",
+// "dotfiles.targetPath": "~/dotfiles",
+// "dotfiles.installCommand": "~/dotfiles/install.sh"
 ```
 
 ### 6.4. Scripts
@@ -147,13 +155,13 @@ If the following message is displayed, the functionality test is complete.
 ```bash
 poetry run task test
 ```
-- Run formatter
+- Run formatters
 ```bash
 poetry run task fmt
 ```
-- Run linter
+- Run linters
 ```bash
-poetry run tash lint
+poetry run task lint
 ```
 
 
