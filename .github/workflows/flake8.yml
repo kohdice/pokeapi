@@ -1,4 +1,4 @@
-name: Static analysis with flake8
+name: Static code analysis with flake8
 
 run-name: ${{ github.actor }} is running static analysis with flake8
 

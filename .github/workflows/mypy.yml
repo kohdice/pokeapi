@@ -1,4 +1,4 @@
-name: Static analysis with mypy
+name: Static code analysis with mypy
 
 run-name: ${{ github.actor }} is running static analysis with mypy
 
