@@ -14,6 +14,8 @@ jobs:
   test:
     runs-on: ubuntu-22.04
 
+    permissions: write-all
+
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
@@ -36,7 +38,18 @@ jobs:
         run: |
           STAGE=development docker-compose -f docker/docker-compose.yml exec -T app poetry run pytest --cov=. --cov-branch --cov-report=term-missing --junitxml=./pytest.xml > ./pytest-coverage.txt
       - name: Pytest coverage comment
+        id: coverageComment
         uses: MishaKav/pytest-coverage-comment@main
         with:
           pytest-coverage-path: ./pytest-coverage.txt
           junitxml-path: ./pytest.xml
+      - name: Create Coverage Badge
+        uses: schneegans/dynamic-badges-action@v1.6.0
+        with:
+          auth: ${{ secrets.BADGE_GIST }}
+          gistID: b741bc9aa065ec27ebd515d2a63c3c79
+          filename: pytest-coverage-comment.json
+          label: Coverage
+          message: ${{ steps.coverageComment.outputs.coverage }}
+          color: ${{ steps.coverageComment.outputs.color }}
+          namedLogo: python
