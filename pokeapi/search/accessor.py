@@ -2,7 +2,8 @@ from typing import Any, Generator
 
 from elasticsearch import Elasticsearch
 
-from ..schemas.pokemon_schema import PokemonSchema
+from pokeapi.schemas.pokemon_schema import PokemonSchema
+
 from . import config
 
 
