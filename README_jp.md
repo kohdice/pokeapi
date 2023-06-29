@@ -1,7 +1,7 @@
 # pokeapi
 
 [![Python](https://img.shields.io/badge/Python-3.10-blue)](https://www.python.org/)
-[![Coverage](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/kohdice/b741bc9aa065ec27ebd515d2a63c3c79/raw/pytest-coverage-comment.json)](https://github.com/kohdice/pokeapi/actions/workflows/pytest.yml)
+[![codecov](https://codecov.io/gh/kohdice/pokeapi/branch/main/graph/badge.svg?token=LOL05HLA7R)](https://codecov.io/gh/kohdice/pokeapi)
 
 ## 1. 目次
 - [1. 目次](#1-目次)
