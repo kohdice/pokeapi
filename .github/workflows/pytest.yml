@@ -36,20 +36,10 @@ jobs:
         run: sleep 10s
       - name: Run pytest
         run: |
-          STAGE=development docker-compose -f docker/docker-compose.yml exec -T app poetry run pytest --cov=. --cov-branch --cov-report=term-missing:skip-covered --junitxml=./pytest.xml > ./pytest-coverage.txt
-      - name: Pytest coverage comment
-        id: coverageComment
-        uses: MishaKav/pytest-coverage-comment@main
+          STAGE=development docker-compose -f docker/docker-compose.yml exec -T app poetry run pytest --cov=. --cov-branch --cov-report=xml
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
         with:
-          pytest-coverage-path: ./pytest-coverage.txt
-          junitxml-path: ./pytest.xml
-      - name: Create Coverage Badge
-        uses: schneegans/dynamic-badges-action@v1.6.0
-        with:
-          auth: ${{ secrets.BADGE_GIST }}
-          gistID: b741bc9aa065ec27ebd515d2a63c3c79
-          filename: pytest-coverage-comment.json
-          label: Coverage
-          message: ${{ steps.coverageComment.outputs.coverage }}
-          color: ${{ steps.coverageComment.outputs.color }}
-          namedLogo: python
+          env_vars: OS,PYTHON
+          file: ./coverage.xml
+          fail_ci_if_error: true
