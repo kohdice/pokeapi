@@ -14,8 +14,6 @@ jobs:
   test:
     runs-on: ubuntu-22.04
 
-    permissions: write-all
-
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
